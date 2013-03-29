@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+	<header class="content-header">
+		<h1>Clients</h1>
+		<h2>{{ client.name }}</h2>
+	</header>
+
+	<h3>Client Details</h3>
+	<ul>
+		<li>Name: {{ client.name }}</li>
+		<li>Company: {{ client.company }}</li>
+		<li>Website: {{ client.website }}</li>
+	</ul>
+
+	<h3>Client Contact</h3>
+	<ul>
+		<li>Email: {{ client.email }}</li>
+		<li>Telephone: {{ client.telephone }}</li>
+		<li>Skype: {{ client.skype }}</li>
+	</ul>
+
+	<h3>Client Address</h3>
+	<p>
+		{{ client.street }}<br>
+		{{ client.street_2 }}<br>
+		{{ client.city }}<br>
+		{{ client.state }} {{ client.postcode }}<br>
+		{{ client.country }}<br>
+	</p>
+
+	<h3>Projects</h3>
+	<ul>
+	{% for project in projects %}
+		<li><a href="{{ url_for('view_project', project_id = project.id) }}">{{ project.name }}</a></li>
+	{% endfor %}
+	</ul>
+
+	<h3>Invoices</h3>
+	<ul>
+	{% for invoice in invoices %}
+		<li><a href="{{ url_for('view_invoice', invoice_id = invoice.id) }}">{{ invoice.name }}</a></li>
+	{% endfor %}
+	</ul>
+
+	<h3>Notes</h3>
+	<div class="notes">
+		{{ client.notes }}
+	</div>
+
+{% endblock content %}

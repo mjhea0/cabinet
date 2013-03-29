@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+	<header class="content-header">
+		<h1>Invoices</h1>
+		<h2>Edit <em>{{ invoice.name }}</em></h2>
+	</header>
+
+	<form action="" method="post" name="edit-client">
+		{% include 'invoices/_form.html' %}
+		<p class="form-buttons"><a href="{{ url_for('invoices') }}" class="btn cancel-btn">Cancel</a><button class="btn">Edit Invoice</button></p>
+	</form>
+
+{% endblock content %}

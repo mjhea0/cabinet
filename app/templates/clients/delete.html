@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+	<header class="content-header">
+		<h1>Clients</h1>
+		<h2>Delete <em>{{ client.name }}</em></h2>
+	</header>
+
+	<form action="" method="post" name="delete-client">
+		<p>Are you sure you want to delete client <em>{{ client.name }}?</em></p>
+		<input type="hidden" name="delete">
+		<p class="form-buttons"><a href="{{ url_for('clients') }}">Cancel</a> <button>Delete Client</button> </p>
+	</form>
+
+{% endblock content %}

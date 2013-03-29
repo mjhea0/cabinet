@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+	<header class="content-header">
+		<h1>Projects</h1>
+		<h2>Add a New Project</h2>
+	</header>
+
+	<form action="" method="post" name="add-project">
+		{% include 'projects/_form.html' %}
+		<p class="form-buttons"><button>Add Project</button></p>
+	</form>
+{% endblock content %}

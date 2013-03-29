@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+	<header class="content-header">
+		<h1>Invoices</h1>
+		<h2>Delete <em>{{ invoice.name }}</em></h2>
+	</header>
+
+	<form action="" method="post" name="delete-invoice">
+		<p>Are you sure you want to delete invoice <em>{{ invoice.name }}?</em></p>
+		<input type="hidden" name="delete">
+		<p class="form-buttons"><a href="{{ url_for('invoices') }}">Cancel</a> <button>Delete Invoice</button> </p>
+	</form>
+
+{% endblock content %}

@@ -1,0 +1,55 @@
+<fieldset>
+	<legend>Invoice Details</legend>
+	<ol>
+		<li>
+			<label for="name">Invoice ID</label>
+			<input name="name" value="{% if invoice %}{{ invoice.name }}{% endif %}">
+		</li>
+		<li>
+			<label for="status">Status</label>
+			<select name="status">
+				<option value="draft">Draft</option>
+				<option value="sent">Sent</option>
+				<option value="overdue">Overdue</option>
+				<option value="paid">Paid</option>
+			</select>
+		</li>
+		<li>
+			<label for="client">Client</label>
+			<select name="client">
+				{% for client in clients %}
+					<option value="{{ client.id }}"{% if invoice and invoice.client.name == client.name %}selected="selected"{% endif %}>{{ client.name }}</option>
+				{% endfor %}
+			</select>
+		</li>
+		<li>
+			<label for="project">Project</label>
+			<select name="project">
+				{% for project in projects %}
+					<option value="{{ project.id }}"{% if invoice and invoice.project.name == project.name %}selected="selected"{% endif %}>{{ project.name }}</option>
+				{% endfor %}
+			</select>
+		</li>
+		<li>
+			<label for="currency">Currency</label>
+			<select name="currency">
+				<option value="eur">EUR</option>
+				<option value="usd">USD</option>
+			</select>
+		</li>
+		<li>
+			<a href="">Send as Email</a>
+		</li>
+		<li>
+			<a href="">Export as PDF</a>
+		</li>
+	</ol>
+</fieldset>
+<fieldset>
+	<legend>Invoice</legend>
+	{% include 'invoices/_invoice.html' %}
+</fieldset>
+<fieldset>
+	<legend>Internal Notes</legend>
+	<textarea name="internal_notes" rows="10" cols="40">{% if invoice %}{{ invoice.internal_notes }}{% endif %}</textarea>
+</fieldset>

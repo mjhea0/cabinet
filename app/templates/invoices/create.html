@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+	<header class="content-header">
+		<h1>Invoices</h1>
+		<h2>Add a New Invoice</h2>
+	</header>
+
+	<form action="" method="post" name="add-invoice">
+		{% include 'invoices/_form.html' %}
+		<p class="form-buttons"><button>Add Invoice</button></p>
+	</form>
+{% endblock content %}

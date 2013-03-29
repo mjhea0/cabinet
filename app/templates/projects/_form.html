@@ -1,0 +1,68 @@
+<fieldset>
+	<legend>Project Details</legend>
+	<ol>
+		<li>
+			<label for="name">Name</label>
+			<input name="name" value="{% if project %}{{ project.name }}{% endif %}">
+		</li>
+		<li>
+			<label for="description">Description</label>
+			<textarea name="description" rows="10" cols="40">{% if project %}{{ project.description }}{% endif %}</textarea>
+		</li>
+		<li>
+			<label for="client">Client</label>
+			<select name="client">
+				{% for client in clients %}
+					<option value="{{ client.id }}"{% if project and project.client.name == client.name %}selected="selected"{% endif %}>{{ client.name }}</option>
+				{% endfor %}
+			</select>
+		</li>
+		<li>
+			<label for="status">Status</label>
+			<select name="status">
+				<option value="In Progress">In Progress</option>
+				<option value="On Hold">On Hold</option>
+				<option value="Finishing">Finishing</option>
+				<option value="Finished">Finished</option>
+			</select>
+		</li>
+	</ol>
+</fieldset>
+<fieldset>
+	<legend>Project Details</legend>
+	<ol>
+		<li>
+			<label for="project_start">Project Start</label>
+			<input name="project_start" value="{% if project %}{{ project.project_start }}{% endif %}">
+		</li>
+		<li>
+			<label for="project_end">Project End</label>
+			<input name="project_end" value="{% if project %}{{ project.project_end }}{% endif %}">
+		</li>
+		<li>
+			<label for="hourly_rate">Hourly Rate</label>
+			<input name="hourly_rate" value="{% if project %}{{ project.hourly_rate }}{% endif %}">
+		</li>
+		<li>
+			<label for="quote">Quote</label>
+			<input name="quote" value="{% if project %}{{ project.quote }}{% endif %}">
+		</li>
+	</ol>
+</fieldset>
+<fieldset>
+	<legend>Tasks</legend>
+	<ol>
+		<li>
+			<label for="task">Task</label>
+			<input name="task" value="{% if project %}{{ project.task }}{% endif %}">
+			<label for="task_hours">Task Hours</label>
+			<input name="task_hours" value="{% if project %}{{ project.task_hours }}{% endif %}">
+			<label for="task_hours">Task Flat Rate</label>
+			<input name="task_rate" value="{% if project %}{{ project.task_rate }}{% endif %}">
+		</li>
+	</ol>
+</fieldset>
+<fieldset>
+	<legend>Notes</legend>
+	<textarea name="notes" rows="10" cols="40">{% if project %}{{ project.notes }}{% endif %}</textarea>
+</fieldset>
