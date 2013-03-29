@@ -2,6 +2,8 @@
 
 An application to manage Clients, Projects and Invoices made with Flask.
 
+Database scripts [from here](http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iv-database).
+
 ## Deploy project
 
 	cd path/to/repository
