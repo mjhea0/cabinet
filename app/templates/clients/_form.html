@@ -13,6 +13,10 @@
 			<label for="website">Website</label>
 			<input name="website" value="{% if client %}{{ client.website }}{% endif %}">
 		</li>
+		<li>
+			<label for="twitter">Twitter</label>
+			<input name="twitter" value="{% if client %}{{ client.twitter }}{% endif %}">
+		</li>
 	</ol>
 </fieldset>
 <fieldset>
@@ -30,29 +34,16 @@
 			<label for="skype">Skype</label>
 			<input name="skype" value="{% if client %}{{ client.skype }}{% endif %}">
 		</li>
-	</ol>
-</fieldset>
-<fieldset>
-	<legend>Client Address</legend>
-	<ol>
 		<li>
 			<label for="street">Street</label>
 			<input name="street" value="{% if client %}{{ client.street }}{% endif %}">
-			<input name="street_2" value="{% if client %}{{ client.street_2 }}{% endif %}">
-		</li>
-		<li>
+			<input name="street_2" value="{% if client %}{{ client.street_2 }}{% endif %}"><br>
 			<label for="city">City</label>
-			<input name="city" value="{% if client %}{{ client.city }}{% endif %}">
-		</li>
-		<li>
+			<input name="city" value="{% if client %}{{ client.city }}{% endif %}"><br>
 			<label for="state">County/State</label>
-			<input name="state" value="{% if client %}{{ client.state }}{% endif %}">
-		</li>
-		<li>
+			<input name="state" value="{% if client %}{{ client.state }}{% endif %}"><br>
 			<label for="postcode">Postcode/Zip Code</label>
-			<input name="postcode" value="{% if client %}{{ client.postcode }}{% endif %}">
-		</li>
-		<li>
+			<input name="postcode" value="{% if client %}{{ client.postcode }}{% endif %}"><br>
 			<label for="country">Country</label>
 			<input name="country" value="{% if client %}{{ client.country }}{% endif %}">
 		</li>

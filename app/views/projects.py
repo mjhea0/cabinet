@@ -30,6 +30,13 @@ def create_project():
 			client = Client.query.get(request.form['client'])
 			project = Project(
 				name = request.form['name'],
+				description = request.form['description'],
+				status = request.form['status'],
+#				project_start = request.form['project_start'],
+#				project_end = request.form['project_end'],
+				hourly_rate = request.form['hourly_rate'],
+				quote = request.form['quote'],
+				notes = request.form['notes'],
 				client = client)
 			db.session.add(project)
 			db.session.commit()
@@ -49,6 +56,13 @@ def edit_project(project_id):
 		if request.method == 'POST':
 			client = Client.query.get(request.form['client'])
 			project.name = request.form['name']
+			project.description = request.form['description']
+			project.status = request.form['status']
+#			project.project_start = request.form['project_start']
+#			project.project_end = request.form['project_end']
+			project.hourly_rate = request.form['hourly_rate']
+			project.quote = request.form['quote']
+			project.notes = request.form['notes']
 			project.client = client
 			db.session.add(project)
 			db.session.commit()

@@ -6,10 +6,6 @@
 			<input name="name" value="{% if project %}{{ project.name }}{% endif %}">
 		</li>
 		<li>
-			<label for="description">Description</label>
-			<textarea name="description" rows="10" cols="40">{% if project %}{{ project.description }}{% endif %}</textarea>
-		</li>
-		<li>
 			<label for="client">Client</label>
 			<select name="client">
 				{% for client in clients %}
@@ -18,18 +14,22 @@
 			</select>
 		</li>
 		<li>
+			<label for="description">Description</label>
+			<textarea name="description" rows="10" cols="40">{% if project %}{{ project.description }}{% endif %}</textarea>
+		</li>
+		<li>
 			<label for="status">Status</label>
 			<select name="status">
-				<option value="In Progress">In Progress</option>
-				<option value="On Hold">On Hold</option>
-				<option value="Finishing">Finishing</option>
-				<option value="Finished">Finished</option>
+				<option value="Draft"{% if project and project.status == "Draft" %}selected="selected"{% endif %}>Draft</option>
+				<option value="In Progress"{% if project and project.status == "In Progress" %}selected="selected"{% endif %}>In Progress</option>
+				<option value="Finished"{% if project and project.status == "Draft" %}selected="Finished"{% endif %}>Finished</option>
+				<option value="Archived"{% if project and project.status == "Archived" %}selected="selected"{% endif %}>Archived</option>
 			</select>
 		</li>
 	</ol>
 </fieldset>
 <fieldset>
-	<legend>Project Details</legend>
+	<legend>Project Quotes</legend>
 	<ol>
 		<li>
 			<label for="project_start">Project Start</label>
@@ -53,12 +53,19 @@
 	<legend>Tasks</legend>
 	<ol>
 		<li>
-			<label for="task">Task</label>
-			<input name="task" value="{% if project %}{{ project.task }}{% endif %}">
+			<label for="task_status">Status</label>
+			<select name="task_status">
+				<option value="Not Started">Not Started</option>
+				<option value="Started">Started</option>
+				<option value="Finished">Finished</option>
+			</select>
+			<label for="task_name">Task</label>
+			<input name="task_name" value="{% if project %}{{ project.task_name }}{% endif %}">
 			<label for="task_hours">Task Hours</label>
 			<input name="task_hours" value="{% if project %}{{ project.task_hours }}{% endif %}">
-			<label for="task_hours">Task Flat Rate</label>
-			<input name="task_rate" value="{% if project %}{{ project.task_rate }}{% endif %}">
+			<label for="task_price">Task Price</label>
+			<input name="task_price" value="{% if project %}{{ project.task_price }}{% endif %}">
+			<a href="">More</a>
 		</li>
 	</ol>
 </fieldset>

@@ -49,4 +49,7 @@
 
 	<h3>Notes</h3>
 	<textarea name="notes" rows="10" cols="40">{% if invoice %}{{ invoice.notes }}{% endif %}</textarea>
+
+	<h3>Payment</h3>
+	<textarea name="payment" rows="10" cols="40">{% if invoice %}{{ invoice.payment }}{% endif %}</textarea>
 </div>

@@ -19,3 +19,10 @@ Database scripts [from here](http://blog.miguelgrinberg.com/post/the-flask-mega-
 ## Run application
 
 	./run.py
+
+## TODO
+
+	* Dashboard Calendar
+	* Services and tasks
+	* Date selection
+	* Theme

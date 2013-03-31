@@ -32,6 +32,14 @@ def create_invoice():
 			project = Project.query.get(request.form['project'])
 			invoice = Invoice(
 				name = request.form['name'],
+				currency = request.form['currency'],
+				status = request.form['status'],
+#				sent_date = request.form['sent_date'],
+#				due_date = request.form['due_date'],
+#				total_price = request.form['total_price'],
+				notes = request.form['notes'],
+				payment = request.form['payment'],
+				internal_notes = request.form['internal_notes'],
 				client = client,
 				project = project)
 			db.session.add(invoice)
@@ -55,6 +63,14 @@ def edit_invoice(invoice_id):
 			client = Client.query.get(request.form['client'])
 			project = Project.query.get(request.form['project'])
 			invoice.name = request.form['name']
+			invoice.currency = request.form['currency']
+			invoice.status = request.form['status']
+#			invoice.sent_date = request.form['sent_date']
+#			invoice.due_date = request.form['due_date']
+#			invoice.total_price = request.form['total_price']
+			invoice.notes = request.form['notes']
+			invoice.payment = request.form['payment']
+			invoice.internal_notes = request.form['internal_notes']
 			invoice.client = client
 			invoice.project = project
 			db.session.add(invoice)

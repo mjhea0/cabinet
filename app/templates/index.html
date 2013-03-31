@@ -1,4 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 	<h1>Dashboard</h1>
+
+	<div class="calendar">
+		{% for month in calendar %}
+<!--			<h2 class="{% if loop.index == this_month %}current-{% endif %}month">{{ ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][loop.index0] }} {{ year }}</h2> -->
+			<h2>{{ this_month }} {{ year }}</h2>
+			<table class="{% if loop.index == this_month %}current-{% endif %}month">
+			{% for week in month %}
+				<tr>
+				{% for date in week %}
+					<td>
+						{{ date.day }}
+					</td>
+				{% endfor %}
+				</tr>
+			{% endfor %}
+			</table>
+		{% endfor %}
+	</div>
+
+	<h2>Notifications</h2>
 {% endblock content %}

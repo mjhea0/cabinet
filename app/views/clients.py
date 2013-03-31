@@ -34,6 +34,7 @@ def create_client():
 				name = request.form['name'],
 				company = request.form['company'],
 				website = request.form['website'],
+				twitter = request.form['twitter'],
 				email = request.form['email'],
 				telephone = request.form['telephone'],
 				skype = request.form['skype'],
@@ -61,6 +62,7 @@ def edit_client(client_id):
 			client.name = request.form['name']
 			client.company = request.form['company']
 			client.website = request.form['website']
+			client.twitter = request.form['twitter']
 			client.email = request.form['email']
 			client.telephone = request.form['telephone']
 			client.skype = request.form['skype']
