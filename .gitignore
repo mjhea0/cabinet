@@ -11,3 +11,4 @@ db_repository
 
 # Others
 .DS_Store
+.webassets-cache
