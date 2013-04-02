@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-	<h1>Dashboard</h1>
-
 	<div class="calendar">
 		{% for month in calendar %}
 <!--			<h2 class="{% if loop.index == this_month %}current-{% endif %}month">{{ ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][loop.index0] }} {{ year }}</h2> -->
-			<h2>{{ this_month }} {{ year }}</h2>
+			<h2 class="{% if loop.index == this_month %}current-{% endif %}month">{{ [0, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][this_month] }} {{ year }}</h2>
 			<table class="{% if loop.index == this_month %}current-{% endif %}month">
+				<tr>
+					<th>MON</th>
+					<th>TUE</th>
+					<th>WED</th>
+					<th>THU</th>
+					<th>FRI</th>
+					<th>SAT</th>
+					<th>SUN</th>
+				</tr>
 			{% for week in month %}
 				<tr>
 				{% for date in week %}
 					<td>
-						{{ date.day }}
+						<p class="day">{{ date.day }}</p>
 					</td>
 				{% endfor %}
 				</tr>
@@ -20,5 +27,15 @@
 		{% endfor %}
 	</div>
 
-	<h2>Notifications</h2>
-{% endblock content %}
+	<ul class="messages">
+	{% for i in range(0,3) %}<li class="project">
+		<h3>Project Name</h3>
+		<h4>Client Name</h4>
+		<p class="msg-categories">
+			<span class="msg-todo">Todo</span>
+			<span class="msg-tasks">Tasks</span>
+			<span class="msg-invoices">Invoices</span>
+		</p>
+	</li>{% endfor %}
+	</ul>
+{% endblock %}

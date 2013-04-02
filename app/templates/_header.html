@@ -1,9 +1,13 @@
 <header class="site-header">
-	<h1><a href="{{ url_for('index') }}">Cabinet</a></h2>
-	<ul class="nav">
-		<li><a href="{{ url_for('clients') }}">Clients</a></li>
-		<li><a href="{{ url_for('projects') }}">Projects</a></li>
-		<li><a href="{{ url_for('invoices') }}">Invoices</a></li>
-		<li><a href="{{ url_for('logout') }}">Logout</a></li>
-	</ul>
+	<div class="container">
+		<h1 class="brand"><a href="{{ url_for('index') }}">Cabinet</a></h2>
+		<ul class="nav main-menu">
+			<li><a href="{{ url_for('clients') }}">Clients</a><a href="{{ url_for('create_client') }}" class="add-link">+</a></li>
+			<li><a href="{{ url_for('projects') }}">Projects</a><a href="{{ url_for('create_project') }}" class="add-link">+</a></li>
+			<li><a href="{{ url_for('invoices') }}">Invoices</a><a href="{{ url_for('create_invoice') }}" class="add-link">+</a></li>
+		</ul>
+		<ul class="nav account-menu">
+			<li><a href="{{ url_for('logout') }}">Logout</a></li>
+		</ul>
+	</div>
 </header>

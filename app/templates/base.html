@@ -1,12 +1,33 @@
 <!doctype html>
 <html>
 <head>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
 	<title>{{ title }} - Cabinet</title>
+	{% block css %}
+		{% assets 'css' %}
+			<link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+		{% endassets %}
+	{% endblock %}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	{% block head_js %}
+	{% endblock %}
 </head>
 <body>
 	{% block header %}
 		{% include '_header.html' %}
 	{% endblock %}
-	{% block content %}{% endblock %}
+	<div class="site-content">
+		<div class="container">
+			{% block content %}{% endblock %}
+		</div>
+	</div>
+	{% block footer %}
+		{% include '_footer.html' %}
+	{% endblock %}
+	{% block footer_js %}
+		{% assets "js" %}
+			<script type="text/javascript" src="{{ ASSET_URL }}"></script>
+		{% endassets %}
+	{% endblock %}
 </body>
 </html>
