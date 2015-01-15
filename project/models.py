@@ -43,15 +43,15 @@ class Client(db.Model):
     __tablename__ = "clients"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), index=True, nullable=False)
+    first_name = db.Column(db.String(255), index=True, nullable=False)
+    last_name = db.Column(db.String(255), index=True, nullable=False)
+    email = db.Column(db.String(255))
     company = db.Column(db.String(255), nullable=False)
     website = db.Column(db.String(255))
-    twitter_handle = db.Column(db.String(255))
-    email = db.Column(db.String(255))
     telephone = db.Column(db.String(255))
+    twitter_handle = db.Column(db.String(255))
     skype = db.Column(db.String(255))
     street = db.Column(db.String(255))
-    street_two = db.Column(db.String(255))
     city = db.Column(db.String(255))
     state = db.Column(db.String(255))
     postal_code = db.Column(db.String(255))
@@ -59,7 +59,7 @@ class Client(db.Model):
     notes = db.Column(db.Text(1000))
 
     def __repr__(self):
-        return '<Client {0}>'.format(self.name)
+        return '<Client {0}>'.format(self.last_name)
 
 
 class Project(db.Model):

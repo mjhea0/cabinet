@@ -1,15 +1,64 @@
 {% extends '_base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
 
-	<header class="content-header">
-		<h1>Clients</h1>
-		<h2>Add a New Client</h2>
-	</header>
+  <header class="content-header">
+    <h1>Clients / Add Client</h1>
+  </header>
 
-	<form action="" method="post" name="add-client">
-		{% include 'clients/_form.html' %}
-		<p class="form-buttons"><button>Add Client</button></p>
-	</form>
+  <br>
+
+
+  <form class="form" role="form" method="post" action="">
+
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    {{ wtf.form_errors(form, hiddens="only") }}
+
+
+    <div class="col-lg-4 col-sm-4">
+
+      <h3>Contact</h3>
+      <hr><br>
+
+      {{ wtf.form_field(form.first_name) }}
+      {{ wtf.form_field(form.last_name) }}
+      {{ wtf.form_field(form.email) }}
+      {{ wtf.form_field(form.notes) }}
+
+    </div>
+
+    <div class="col-lg-4 col-sm-4">
+
+      <h3>Organization</h3>
+      <hr><br>
+
+      {{ wtf.form_field(form.company) }}
+      {{ wtf.form_field(form.website) }}
+      {{ wtf.form_field(form.telephone) }}
+      {{ wtf.form_field(form.twitter_handle) }}
+      {{ wtf.form_field(form.skype) }}
+
+    </div>
+
+    <div class="col-lg-4 col-sm-4">
+
+      <h3>Address</h3>
+      <hr><br>
+
+      {{ wtf.form_field(form.street) }}
+      {{ wtf.form_field(form.city) }}
+      {{ wtf.form_field(form.state) }}
+      {{ wtf.form_field(form.postal_code) }}
+      {{ wtf.form_field(form.country) }}
+
+    </div>
+
+    <button class="btn btn-success btn-lg" type="submit">Add Client</button>
+    <a href="{{ url_for('client.clients') }}" class="btn btn-default btn-lg">Cancel</a>
+
+  </form>
+
 
 {% endblock content %}

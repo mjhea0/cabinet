@@ -11,6 +11,7 @@ from flask.ext.login import login_required
 
 from project import db
 from project.models import Client
+from project.client.forms import AddClientForm
 
 
 ################
@@ -27,7 +28,7 @@ client_blueprint = Blueprint('client', __name__,)
 @client_blueprint.route('/clients')
 @login_required
 def clients():
-    clients = Client.query.order_by('name').all()
+    clients = Client.query.order_by('last_name').all()
     return render_template(
         'clients/clients.html',
         title='Clients',
@@ -53,27 +54,30 @@ def view_client(client_id):
 @client_blueprint.route('/clients/create', methods=['GET', 'POST'])
 @login_required
 def create_client():
-    if request.method == 'POST':
+    form = AddClientForm()
+    if form.validate_on_submit():
         client = Client(
-            name=request.form['name'],
+            first_name=request.form['first_name'],
+            last_name=request.form['last_name'],
+            email=request.form['email'],
             company=request.form['company'],
             website=request.form['website'],
-            twitter=request.form['twitter'],
-            email=request.form['email'],
             telephone=request.form['telephone'],
+            twitter_handle=request.form['twitter_handle'],
             skype=request.form['skype'],
             street=request.form['street'],
-            street_2=request.form['street_2'],
             city=request.form['city'],
             state=request.form['state'],
-            postcode=request.form['postcode'],
+            postal_code=request.form['postal_code'],
             country=request.form['country'],
-            notes=request.form['notes'])
+            notes=request.form['notes']
+        )
         db.session.add(client)
         db.session.commit()
-        flash("Client '{0}' was added.".format(client.name))
+        flash("Client '{0} {1}' was added.".format(
+            client.first_name, client.last_name), 'success')
         return redirect(url_for('client.clients'))
-    return render_template('clients/create.html')
+    return render_template('clients/create.html', title="Add Client", form=form)
 
 
 @client_blueprint.route(
