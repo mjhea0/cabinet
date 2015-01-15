@@ -6,6 +6,8 @@ An application to manage Clients, Projects and Invoices. Made with Flask.
 
 ### Set Environment Variables
 
+Update the configuration settings in *config.py* and then run:
+
 ```sh
 $ export APP_SETTINGS="project.config.DevelopmentConfig"
 ```
@@ -22,6 +24,7 @@ $ export APP_SETTINGS="project.config.ProductionConfig"
 $ python manage.py create_db
 $ python manage.py db init
 $ python manage.py db migrate
+$ python manage.py create_admin
 ```
 
 ### Run the Application

@@ -1,14 +1,10 @@
-*.py[cod]
-*.pyc
-
-# C extensions
-*.so
-
-# Packages
 env
 temp
-db_repository
+tmp
+migrations
 
-# Others
+*.pyc
+*.sqlite
+*.coverage
 .DS_Store
 .webassets-cache

@@ -55,18 +55,18 @@ import assets
 # app.register_blueprint(product_blueprint)
 
 
-####################
-#### flask-login ####
-####################
+###################
+### flask-login ####
+###################
 
-# from models import User
+from models import User
 
-# login_manager.login_view = "user.login"
+login_manager.login_view = "user.login"
 
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return User.query.filter(User.id == int(user_id)).first()
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.filter(User.id == int(user_id)).first()
 
 
 ########################
