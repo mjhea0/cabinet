@@ -37,20 +37,19 @@ db = SQLAlchemy(app)
 assets = Environment(app)
 
 from project.views import dashboard
-from project.views import clients
 from project.views import projects
 from project.views import invoices
 
 import assets
 
-####################
-#### blueprints ####
-####################
+###################
+### blueprints ####
+###################
 
-# from project.main.views import main_blueprint
+from project.client.views import client_blueprint
 # from project.user.views import user_blueprint
 # from project.product.views import product_blueprint
-# app.register_blueprint(main_blueprint)
+app.register_blueprint(client_blueprint)
 # app.register_blueprint(user_blueprint)
 # app.register_blueprint(product_blueprint)
 
