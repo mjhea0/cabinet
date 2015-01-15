@@ -12,8 +12,7 @@ from project import app, db
 # from project.models import User
 
 
-# app.config.from_object(os.environ['APP_SETTINGS'])
-app.config.from_object('config')
+app.config.from_object(os.environ['APP_SETTINGS'])
 
 migrate = Migrate(app, db)
 manager = Manager(app)

@@ -2,7 +2,21 @@
 
 An application to manage Clients, Projects and Invoices. Made with Flask.
 
-## Create DB
+## Quick Start
+
+### Set Environment Variables
+
+```sh
+$ export APP_SETTINGS="project.config.DevelopmentConfig"
+```
+
+or
+
+```sh
+$ export APP_SETTINGS="project.config.ProductionConfig"
+```
+
+### Create DB
 
 ```sh
 $ python manage.py create_db
@@ -10,7 +24,7 @@ $ python manage.py db init
 $ python manage.py db migrate
 ```
 
-## Run application
+### Run the Application
 
 ```sh
 $ python run.py
