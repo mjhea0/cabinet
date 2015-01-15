@@ -27,8 +27,12 @@ client_blueprint = Blueprint('client', __name__,)
 @client_blueprint.route('/clients')
 @login_required
 def clients():
-    clients = Client.query.order_by('name')
-    return render_template('clients/clients.html', clients=clients)
+    clients = Client.query.order_by('name').all()
+    return render_template(
+        'clients/clients.html',
+        title='Clients',
+        clients=clients
+    )
 
 
 @client_blueprint.route('/clients/<int:client_id>')
