@@ -1,5 +1,5 @@
 from flask.ext.assets import Bundle
-from app import assets
+from project import assets
 
 css = Bundle('less/main.less',
 	filters='less, yui_css', output='css/main.css')

@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, request, flash
-from app import app, db
-from app.models import Invoice, Client, Project
+from project import app, db
+from project.models import Invoice, Client, Project
 
 @app.route('/invoices')
 def invoices():

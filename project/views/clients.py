@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, request, flash
-from app import app, db
-from app.models import Client
+from project import app, db
+from project.models import Client
 
 @app.route('/clients')
 def clients():

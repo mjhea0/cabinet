@@ -18,7 +18,7 @@ $ python run.py
 
 ## TODO
 
-* Dashboard Calendar
-* Services and tasks
-* Date selection
-* Theme
+1. Dashboard Calendar
+1. Services and tasks
+1. Date selection
+1. Theme

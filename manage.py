@@ -9,10 +9,11 @@ from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 
 from project import app, db
-from project.models import User
+# from project.models import User
 
 
-app.config.from_object(os.environ['APP_SETTINGS'])
+# app.config.from_object(os.environ['APP_SETTINGS'])
+app.config.from_object('config')
 
 migrate = Migrate(app, db)
 manager = Manager(app)

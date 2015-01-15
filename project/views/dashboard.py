@@ -1,7 +1,7 @@
 from flask import render_template, session, redirect, url_for, request
 from calendar import Calendar
 from datetime import date
-from app import app
+from project import app
 
 @app.route('/')
 @app.route('/index')
