@@ -43,10 +43,10 @@ from project.views import invoices
 ###################
 
 from project.client.views import client_blueprint
-# from project.user.views import user_blueprint
+from project.user.views import user_blueprint
 # from project.product.views import product_blueprint
 app.register_blueprint(client_blueprint)
-# app.register_blueprint(user_blueprint)
+app.register_blueprint(user_blueprint)
 # app.register_blueprint(product_blueprint)
 
 

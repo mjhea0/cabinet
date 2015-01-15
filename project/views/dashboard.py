@@ -19,24 +19,5 @@ def index():
 			this_month = month,
 			calendar = cal_list)
 	else:
-		return redirect(url_for('login'))
+		return redirect(url_for('user.login'))
 
-@app.route('/login', methods = ['GET', 'POST'])
-def login():
-	error = 0
-	if request.method == 'POST':
-		if request.form['username'] != app.config['USERNAME']:
-			error = 'Invalid username'
-		elif request.form['password'] != app.config['PASSWORD']:
-			error = 'Invalid password'
-		else:
-			session['username'] = request.form['username']
-			return redirect(url_for('index'))
-	return render_template('login.html',
-		title = 'Login', error = error)
-
-@app.route('/logout')
-def logout():
-	# remove the username from the session if it's there
-	session.pop('username', None)
-	return redirect(url_for('login'))
