@@ -34,7 +34,7 @@ mail = Mail(app)
 toolbar = DebugToolbarExtension(app)
 db = SQLAlchemy(app)
 
-from project.views import dashboard
+
 from project.views import projects
 from project.views import invoices
 
@@ -44,10 +44,10 @@ from project.views import invoices
 
 from project.client.views import client_blueprint
 from project.user.views import user_blueprint
-# from project.product.views import product_blueprint
+from project.main.views import main_blueprint
 app.register_blueprint(client_blueprint)
 app.register_blueprint(user_blueprint)
-# app.register_blueprint(product_blueprint)
+app.register_blueprint(main_blueprint)
 
 
 ###################
@@ -57,6 +57,7 @@ app.register_blueprint(user_blueprint)
 from models import User
 
 login_manager.login_view = "user.login"
+login_manager.login_message_category = 'danger'
 
 
 @login_manager.user_loader
