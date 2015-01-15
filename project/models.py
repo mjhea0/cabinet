@@ -57,6 +57,7 @@ class Client(db.Model):
     postal_code = db.Column(db.String(255))
     country = db.Column(db.String(255))
     notes = db.Column(db.Text(1000))
+    date_created = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
         return '<Client {0}>'.format(self.last_name)

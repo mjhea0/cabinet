@@ -18,6 +18,7 @@
           <th>Last Name</th>
           <th>Company</th>
           <th>Email Address</th>
+          <th>Date Created</th>
           <th>Actions</th>
         <tr>
       </thead>
@@ -29,6 +30,7 @@
             <th>{{ client.last_name }}</th>
             <th>{{ client.company }}</th>
             <th><a href="mailto:{{ client.email }}" target="_top">{{ client.email }}</a></th>
+            <th>{{ client.date_created.strftime('%m-%d-%Y') }}</th>
             <th>
               <a href="{{ url_for('client.view_client', client_id = client.id) }}">View</a> |
               <a href="{{ url_for('client.edit_client', client_id = client.id) }}">Edit</a> |
