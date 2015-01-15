@@ -13,7 +13,6 @@ from flask.ext.bcrypt import Bcrypt
 from flask_mail import Mail
 from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.assets import Environment
 
 
 ################
@@ -34,13 +33,10 @@ bcrypt = Bcrypt(app)
 mail = Mail(app)
 toolbar = DebugToolbarExtension(app)
 db = SQLAlchemy(app)
-assets = Environment(app)
 
 from project.views import dashboard
 from project.views import projects
 from project.views import invoices
-
-import assets
 
 ###################
 ### blueprints ####
