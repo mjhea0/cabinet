@@ -36,7 +36,6 @@ db = SQLAlchemy(app)
 
 
 from project.views import projects
-from project.views import invoices
 
 ###################
 ### blueprints ####
@@ -45,9 +44,11 @@ from project.views import invoices
 from project.client.views import client_blueprint
 from project.user.views import user_blueprint
 from project.main.views import main_blueprint
+from project.invoice.views import invoice_blueprint
 app.register_blueprint(client_blueprint)
 app.register_blueprint(user_blueprint)
 app.register_blueprint(main_blueprint)
+app.register_blueprint(invoice_blueprint)
 
 
 ###################
