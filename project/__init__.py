@@ -35,8 +35,6 @@ toolbar = DebugToolbarExtension(app)
 db = SQLAlchemy(app)
 
 
-from project.views import projects
-
 ###################
 ### blueprints ####
 ###################
@@ -45,10 +43,12 @@ from project.client.views import client_blueprint
 from project.user.views import user_blueprint
 from project.main.views import main_blueprint
 from project.invoice.views import invoice_blueprint
+from project.projects.views import projects_blueprint
 app.register_blueprint(client_blueprint)
 app.register_blueprint(user_blueprint)
 app.register_blueprint(main_blueprint)
 app.register_blueprint(invoice_blueprint)
+app.register_blueprint(projects_blueprint)
 
 
 ###################

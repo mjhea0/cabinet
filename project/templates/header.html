@@ -18,8 +18,8 @@
           {% if current_user.is_authenticated() %}
             <li><a href="{{ url_for('main.home') }}">Dashboard</a></li>
             <li><a href="{{ url_for('client.clients') }}">Clients</a></li>
-            <li><a href="{{ url_for('projects') }}">Projects</a></li>
-            <li><a href="{{ url_for('invoices') }}">Invoices</a></li>
+            <li><a href="{{ url_for('projects.projects') }}">Projects</a></li>
+            <li><a href="{{ url_for('invoice.invoices') }}">Invoices</a></li>
           {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
