@@ -10,7 +10,7 @@ from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 
 from project import app, db
-from project.models import User, Client
+from project.models import User, Client, Invoice
 
 
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -87,7 +87,9 @@ def create_data():
         country='United States',
         date_created=datetime.datetime.now()
     )
+    # invoice = Invoice()
     db.session.add(client)
+    # db.session.add(invoice)
     db.session.commit()
 
 

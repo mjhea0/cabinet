@@ -15,7 +15,7 @@ class TestClientBlueprint(BaseTestCase):
         response = self.client.get('/clients', follow_redirects=True)
         self.assertIn('Please log in to access this page', response.data)
 
-    def test_clients_with_no_clients(self):
+    def test_client_with_no_clients(self):
         # Ensure /clients shows no clients.
         with self.client:
             self.client.post(
@@ -28,7 +28,7 @@ class TestClientBlueprint(BaseTestCase):
             self.assertIn('Clients', response.data)
             self.assertIn("You haven't created any clients yet.", response.data)
 
-    def test_clients_with_clients(self):
+    def test_client_with_clients(self):
         # Ensure /clients shows one client.
         add_client()
         with self.client:
@@ -44,13 +44,13 @@ class TestClientBlueprint(BaseTestCase):
             self.assertIn("<th>1</th>", response.data)
             self.assertNotIn("<th>2</th>", response.data)
 
-    def test_view_client_login(self):
+    def test_client_view_login(self):
         # Ensure /clients/<int:client_id> route requres logged in user.
         add_client()
         response = self.client.get('/clients/1', follow_redirects=True)
         self.assertIn('Please log in to access this page', response.data)
 
-    def test_view_client(self):
+    def test_client_view(self):
         # Ensure /clients/1 route exists.
         add_client()
         with self.client:
@@ -64,7 +64,7 @@ class TestClientBlueprint(BaseTestCase):
             self.assertIn('Clients', response.data)
             self.assertIn("Real Python", response.data)
 
-    def test_view_client_with_no_clients(self):
+    def test_client_view_with_no_clients(self):
         # Ensure /clients/1 route does not exist.
         with self.client:
             self.client.post(
@@ -75,16 +75,15 @@ class TestClientBlueprint(BaseTestCase):
             response = self.client.get('/clients/1', follow_redirects=True)
             self.assertEqual(response.status_code, 404)
 
-    def test_view_client_with_invoices(self):
+    def test_client_view_with_invoices(self):
         pass
 
-    def test_create_client_login(self):
+    def test_client_create_login(self):
         # Ensure /clients/create route requres logged in user.
-        add_client()
         response = self.client.get('/clients/create', follow_redirects=True)
         self.assertIn('Please log in to access this page', response.data)
 
-    def test_create_client(self):
+    def test_client_create(self):
         # Ensure /clients/create exists.
         with self.client:
             self.client.post(
@@ -93,10 +92,11 @@ class TestClientBlueprint(BaseTestCase):
                 follow_redirects=True
             )
             response = self.client.get('/clients/create', follow_redirects=True)
+            self.assertEqual(response.status_code, 200)
             self.assertIn('Clients', response.data)
             self.assertIn("Add Client", response.data)
 
-    def test_create_client_post(self):
+    def test_client_create_post(self):
         #  Ensure new client can be created.
         with self.client:
             self.client.post(
@@ -122,10 +122,11 @@ class TestClientBlueprint(BaseTestCase):
                 ),
                 follow_redirects=True
             )
+            self.assertEqual(response.status_code, 200)
             self.assertIn('Clients', response.data)
             self.assertIn("Client &#39;company&#39; was added.", response.data)
 
-    def test_create_client_post_errors(self):
+    def test_client_create_post_errors(self):
         #  Ensure errors populate.
         with self.client:
             self.client.post(
@@ -151,6 +152,77 @@ class TestClientBlueprint(BaseTestCase):
                 ),
                 follow_redirects=True
             )
+            self.assertEqual(response.status_code, 200)
+            self.assertIn('Clients', response.data)
+            self.assertIn('This field is required.', response.data)
+
+    def test_client_edit_login(self):
+        # Ensure clients/edit/1 route requres logged in user.
+        add_client()
+        response = self.client.get('/clients/edit/1', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Please log in to access this page', response.data)
+
+    def test_client_edit_post(self):
+        #  Ensure client can be edited (clients/edit/1).
+        add_client()
+        with self.client:
+            self.client.post(
+                '/login',
+                data=dict(email="ad@min.com", password="admin_user"),
+                follow_redirects=True
+            )
+            response = self.client.post(
+                '/clients/edit/1',
+                data=dict(
+                    first_name='new_first_name',
+                    last_name='new_last_name',
+                    email='new_email@new_email.com',
+                    company='new_company',
+                    website='http://new_website.com',
+                    telephone='5556667777',
+                    street='new_street',
+                    city='new_city',
+                    state='new_state',
+                    postal_code='78978',
+                    country='new_country',
+                    date_created=datetime.datetime.now()
+                ),
+                follow_redirects=True
+            )
+            self.assertEqual(response.status_code, 200)
+            self.assertIn('Clients', response.data)
+            self.assertIn(
+                'Client &#39;new_company&#39; was updated.', response.data)
+
+    def test_client_edit_post_errors(self):
+        #  Ensure errors populate (clients/edit/1).
+        add_client()
+        with self.client:
+            self.client.post(
+                '/login',
+                data=dict(email="ad@min.com", password="admin_user"),
+                follow_redirects=True
+            )
+            response = self.client.post(
+                '/clients/edit/1',
+                data=dict(
+                    first_name='new_first_name',
+                    last_name='',
+                    email='new_email@new_email.com',
+                    company='new_company',
+                    website='http://new_website.com',
+                    telephone='5556667777',
+                    street='new_street',
+                    city='new_city',
+                    state='new_state',
+                    postal_code='78978',
+                    country='new_country',
+                    date_created=datetime.datetime.now()
+                ),
+                follow_redirects=True
+            )
+            self.assertEqual(response.status_code, 200)
             self.assertIn('Clients', response.data)
             self.assertIn("This field is required.", response.data)
 
