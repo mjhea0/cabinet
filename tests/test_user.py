@@ -22,7 +22,7 @@ class TestUserBlueprint(BaseTestCase):
                 data=dict(email="ad@min.com", password="admin_user"),
                 follow_redirects=True
             )
-            self.assertIn(b'Welcome', response.data)
+            self.assertIn('Welcome', response.data)
             self.assertTrue(current_user.email == "ad@min.com")
             self.assertTrue(current_user.is_active())
             self.assertTrue(response.status_code == 200)
@@ -36,7 +36,7 @@ class TestUserBlueprint(BaseTestCase):
                 follow_redirects=True
             )
             response = self.client.get('/logout', follow_redirects=True)
-            self.assertIn(b'You were logged out. Bye!', response.data)
+            self.assertIn('You were logged out. Bye!', response.data)
             self.assertFalse(current_user.is_active())
 
     def test_logout_route_requires_login(self):
@@ -83,7 +83,7 @@ class TestUserBlueprint(BaseTestCase):
             response = self.client.post('/login', data=dict(
                 email='ad@min.com', password='foo_bar'
             ), follow_redirects=True)
-        self.assertIn(b'Invalid email and/or password.', response.data)
+        self.assertIn('Invalid email and/or password.', response.data)
 
 
 if __name__ == '__main__':
