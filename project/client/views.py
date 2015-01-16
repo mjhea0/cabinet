@@ -8,7 +8,7 @@
 import datetime
 
 from flask import render_template, Blueprint, url_for, \
-    redirect, flash, request
+    redirect, flash, request, abort
 from flask.ext.login import login_required
 
 from project import db
@@ -42,13 +42,16 @@ def clients():
 @login_required
 def view_client(client_id):
     client = Client.query.get(client_id)
-    invoices = client.invoices.all()
-    return render_template(
-        'clients/view.html',
-        title=client.company,
-        client=client,
-        invoices=invoices
-    )
+    if client:
+        invoices = client.invoices.all()
+        return render_template(
+            'clients/view.html',
+            title=client.company,
+            client=client,
+            invoices=invoices
+        )
+    else:
+        abort(404)
 
 
 @client_blueprint.route('/clients/create', methods=['GET', 'POST'])
