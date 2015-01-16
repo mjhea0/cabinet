@@ -2,6 +2,8 @@
 
 An application to manage invoicing. Made with Flask.
 
+[![Build Status](https://travis-ci.org/mjhea0/cabinet.svg?branch=master)](https://travis-ci.org/mjhea0/cabinet)
+
 ## Quick Start
 
 ### Set Environment Variables
