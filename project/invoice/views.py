@@ -8,7 +8,7 @@
 import datetime
 
 from flask import render_template, Blueprint, url_for, \
-    redirect, flash, request
+    redirect, flash, request, abort
 from flask.ext.login import login_required
 
 from project import db
@@ -42,12 +42,15 @@ def invoices():
 @invoice_blueprint.route('/invoices/<int:invoice_id>')
 @login_required
 def view_invoice(invoice_id):
-    invoice = Invoice.query.get(invoice_id).all()
-    return render_template(
-        'invoices/view.html',
-        title=invoice.name,
-        invoice=invoice
-    )
+    invoice = Invoice.query.get(invoice_id)
+    if invoice:
+        return render_template(
+            'invoices/view.html',
+            title=invoice.id,
+            invoice=invoice
+        )
+    else:
+        abort(404)
 
 
 @invoice_blueprint.route('/invoices/create', methods=['GET', 'POST'])
