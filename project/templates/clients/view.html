@@ -1,9 +1,10 @@
 {% extends '_base.html' %}
+
 {% block content %}
-	<header class="content-header">
-		<h1>Clients</h1>
-		<h2>{{ client.first_name }}</h2>
-	</header>
+
+  <header class="content-header">
+    <h1>Clients / <em>{{ client.company }}</em></h1>
+  </header>
 
 	<h3>Client Details</h3>
 	<ul>

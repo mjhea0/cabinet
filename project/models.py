@@ -49,14 +49,11 @@ class Client(db.Model):
     company = db.Column(db.String(255), nullable=False)
     website = db.Column(db.String(255))
     telephone = db.Column(db.String(255))
-    twitter_handle = db.Column(db.String(255))
-    skype = db.Column(db.String(255))
     street = db.Column(db.String(255))
     city = db.Column(db.String(255))
     state = db.Column(db.String(255))
     postal_code = db.Column(db.String(255))
     country = db.Column(db.String(255))
-    internal_notes = db.Column(db.Text(1000))
     date_created = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):

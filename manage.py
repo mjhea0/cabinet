@@ -4,12 +4,13 @@
 import os
 import unittest
 import coverage
+import datetime
 
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 
 from project import app, db
-from project.models import User
+from project.models import User, Client
 
 
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -65,7 +66,28 @@ def drop_db():
 @manager.command
 def create_admin():
     """Creates the admin user."""
-    db.session.add(User(email="ad@min.com", password="admin", admin=True))
+    db.session.add(User(email='ad@min.com', password='admin', admin=True))
+    db.session.commit()
+
+
+@manager.command
+def create_data():
+    """Creates sample data."""
+    client = Client(
+        first_name='Michael',
+        last_name='Herman',
+        email='michael@realpython.com',
+        company='Real Python',
+        website='https://realpython.com',
+        telephone='415XXXXXX',
+        street='210 3rd Ave #1',
+        city='San Francisco',
+        state='CA',
+        postal_code='94122',
+        country='United States',
+        date_created=datetime.datetime.now()
+    )
+    db.session.add(client)
     db.session.commit()
 
 
