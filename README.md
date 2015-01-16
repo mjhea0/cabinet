@@ -1,6 +1,6 @@
 # Cabinet
 
-An application to manage Clients, Projects and Invoices. Made with Flask.
+An application to manage invoicing. Made with Flask.
 
 ## Quick Start
 
