@@ -17,7 +17,7 @@ class TestClientBlueprint(BaseTestCase):
     def test_clients_with_no_clients(self):
         # Ensure /clients shows no clients.
         with self.client:
-            response = self.client.post(
+            self.client.post(
                 '/login',
                 data=dict(email="ad@min.com", password="admin_user"),
                 follow_redirects=True
@@ -31,7 +31,7 @@ class TestClientBlueprint(BaseTestCase):
         # Ensure /clients shows one client.
         add_client()
         with self.client:
-            response = self.client.post(
+            self.client.post(
                 '/login',
                 data=dict(email="ad@min.com", password="admin_user"),
                 follow_redirects=True
@@ -53,7 +53,7 @@ class TestClientBlueprint(BaseTestCase):
         # Ensure /clients/1 route exists.
         add_client()
         with self.client:
-            response = self.client.post(
+            self.client.post(
                 '/login',
                 data=dict(email="ad@min.com", password="admin_user"),
                 follow_redirects=True
@@ -66,7 +66,7 @@ class TestClientBlueprint(BaseTestCase):
     def test_view_client_with_no_clients(self):
         # Ensure /clients/1 route does not exist.
         with self.client:
-            response = self.client.post(
+            self.client.post(
                 '/login',
                 data=dict(email="ad@min.com", password="admin_user"),
                 follow_redirects=True
@@ -78,7 +78,19 @@ class TestClientBlueprint(BaseTestCase):
         # Ensure /clients/create route requres logged in user.
         add_client()
         response = self.client.get('/clients/create', follow_redirects=True)
-        self.assertIn('Please log in to access tis page', response.data)
+        self.assertIn('Please log in to access this page', response.data)
+
+    def test_create_client(self):
+        #  Ensure new client can be created.
+        with self.client:
+            self.client.post(
+                '/login',
+                data=dict(email="ad@min.com", password="admin_user"),
+                follow_redirects=True
+            )
+            response = self.client.get('/clients/create', follow_redirects=True)
+            self.assertIn('Clients', response.data)
+            self.assertIn("Add Client", response.data)
 
 
 
