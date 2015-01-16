@@ -120,7 +120,36 @@ class TestClientBlueprint(BaseTestCase):
                 follow_redirects=True
             )
             self.assertIn('Clients', response.data)
-            self.assertIn("Add Clint", response.data)
+            self.assertIn("Client &#39;company&#39; was added.", response.data)
+
+    def test_create_client_post_errors(self):
+        #  Ensure errors populate.
+        with self.client:
+            self.client.post(
+                '/login',
+                data=dict(email="ad@min.com", password="admin_user"),
+                follow_redirects=True
+            )
+            response = self.client.post(
+                '/clients/create',
+                data=dict(
+                    first_name='',
+                    last_name='last_name',
+                    email='email@email.com',
+                    company='company',
+                    website='http://website.com',
+                    telephone='1112221234',
+                    street='street',
+                    city='city',
+                    state='state',
+                    postal_code='60987',
+                    country='country',
+                    date_created=datetime.datetime.now()
+                ),
+                follow_redirects=True
+            )
+            self.assertIn('Clients', response.data)
+            self.assertIn("This field is required.", response.data)
 
 
 if __name__ == '__main__':
