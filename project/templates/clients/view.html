@@ -36,11 +36,15 @@
 
     <h3>Invoices</h3>
     <hr>
-    <ul>
-      {% for invoice in invoices %}
-        <li><a href="{{ url_for('view_invoice', invoice_id = invoice.id) }}">{{ invoice.name }}</a></li>
-      {% endfor %}
-    </ul>
+    {% if invoices %}
+      <ul>
+        {% for invoice in invoices %}
+          <li><a href="{{ url_for('view_invoice', invoice_id = invoice.id) }}">{{ invoice.name }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>You haven't created any invoices for this client yet.</p>
+    {% endif %}
 
   </div>
 
