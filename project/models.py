@@ -75,4 +75,4 @@ class Invoice(db.Model):
         'Client', backref=db.backref('invoices', lazy='dynamic'))
 
     def __repr__(self):
-        return '<Invoice {0}>'.format(self.name)
+        return '<Invoice {0}>'.format(self.id)

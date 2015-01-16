@@ -16,24 +16,24 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>Client ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Company</th>
-          <th>Email Address</th>
-          <th>Date Created</th>
+          <th>Invoice ID</th>
+          <th>Client</th>
+          <th>Paid</th>
+          <th>Created Date</th>
+          <th>Due Date</th>
+          <th>Total Price</th>
           <th>Actions</th>
         <tr>
       </thead>
       <tbody>
-        {% for invoice in invoice %}
+        {% for invoice in invoices %}
           <tr>
-            <th>{{ client.id }}</th>
-            <th>{{ client.first_name }}</th>
-            <th>{{ client.last_name }}</th>
-            <th>{{ client.company }}</th>
-            <th><a href="mailto:{{ client.email }}" target="_top">{{ client.email }}</a></th>
-            <th>{{ client.date_created.strftime('%m-%d-%Y') }}</th>
+            <th>{{ invoice.id }}</th>
+            <th>{{ invoice.client.company }}</th>
+            <th>{{ invoice.paid }}</th>
+            <th>{{ invoice.created_date.strftime('%m-%d-%Y') }}</th>
+            <th>{{ invoice.due_date.strftime('%m-%d-%Y') }}</th>
+            <th>{{ invoice.total_price }}</th>
             <th>
               <a href="{{ url_for('invoice.view_invoice', invoice_id = invoice.id) }}">View</a> |
               <a href="{{ url_for('invoice.edit_invoice', invoice_id = invoice.id) }}">Edit</a> |

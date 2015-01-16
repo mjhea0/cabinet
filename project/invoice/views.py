@@ -31,7 +31,7 @@ invoice_blueprint = Blueprint('invoice', __name__,)
 @invoice_blueprint.route('/invoices')
 @login_required
 def invoices():
-    invoices = Invoice.query.order_by('name')
+    invoices = Invoice.query.order_by('due_date').all()
     return render_template(
         'invoices/invoices.html',
         title='Invoices',
@@ -42,7 +42,7 @@ def invoices():
 @invoice_blueprint.route('/invoices/<int:invoice_id>')
 @login_required
 def view_invoice(invoice_id):
-    invoice = Invoice.query.get(invoice_id)
+    invoice = Invoice.query.get(invoice_id).all()
     return render_template(
         'invoices/view.html',
         title=invoice.name,
