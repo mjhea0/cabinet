@@ -25,7 +25,7 @@ class TestUserBlueprint(BaseTestCase):
             self.assertIn('Welcome', response.data)
             self.assertTrue(current_user.email == "ad@min.com")
             self.assertTrue(current_user.is_active())
-            self.assertTrue(response.status_code == 200)
+            self.assertEqual(response.status_code, 200)
 
     def test_logout_behaves_correctly(self):
         # Ensure logout behaves correctly, regarding the session
@@ -42,7 +42,7 @@ class TestUserBlueprint(BaseTestCase):
     def test_logout_route_requires_login(self):
         # Ensure logout route requres logged in user.
         response = self.client.get('/logout', follow_redirects=True)
-        self.assertIn(b'Please log in to access this page', response.data)
+        self.assertIn('Please log in to access this page', response.data)
 
     def test_validate_success_login_form(self):
         # Ensure correct data validates.
