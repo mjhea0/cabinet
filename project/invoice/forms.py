@@ -2,11 +2,10 @@
 
 
 from flask_wtf import Form
-from wtforms import FloatField, DateField, SelectField
-from wtforms.validators import DataRequired, Length
+from wtforms import FloatField, SelectField
+from wtforms.validators import DataRequired
 
 
 class AddInvoiceForm(Form):
-    client = SelectField('Client')
-    due_date = DateField('Due Date', validators=[DataRequired(), Length(min=3)])
+    client = SelectField('Client', coerce=int)
     total_price = FloatField('Total Price', validators=[DataRequired()])

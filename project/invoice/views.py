@@ -32,7 +32,11 @@ invoice_blueprint = Blueprint('invoice', __name__,)
 @login_required
 def invoices():
     invoices = Invoice.query.order_by('name')
-    return render_template('invoices/invoices.html', invoices=invoices)
+    return render_template(
+        'invoices/invoices.html',
+        title='Invoices',
+        invoices=invoices
+    )
 
 
 @invoice_blueprint.route('/invoices/<int:invoice_id>')
@@ -57,13 +61,14 @@ def create_invoice():
         invoice = Invoice(
             paid=0,
             created_date=datetime.datetime.now(),
-            due_date=request.form['due_date'],
+            due_date=datetime.datetime.now(),
             total_price=request.form['total_price'],
             client=client
         )
         db.session.add(invoice)
         db.session.commit()
-        flash("Invoice '{0}' was added.".format(invoice.name))
+        flash("Invoice #'{0}' was added for '{1}'.".format(
+            invoice.id, client.company),  'success')
         return redirect(url_for('invoice.invoices'))
     return render_template(
         'invoices/create.html',
