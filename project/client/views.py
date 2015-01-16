@@ -45,7 +45,7 @@ def view_client(client_id):
     invoices = client.invoices.all()
     return render_template(
         'clients/view.html',
-        title=client.last_name+","+client.first_name,
+        title=client.company,
         client=client,
         invoices=invoices
     )

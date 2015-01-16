@@ -6,41 +6,42 @@
     <h1>Clients / <em>{{ client.company }}</em></h1>
   </header>
 
-	<h3>Client Details</h3>
-	<ul>
-		<li>Name: {{ client.first_name }}</li>
-		<li>Company: {{ client.company }}</li>
-		<li>Website: {{ client.website }}</li>
-		<li>Twitter: {{ client.twitter }}</li>
-	</ul>
+  <br>
 
-	<h3>Client Contact</h3>
-	<ul>
-		<li>Email: {{ client.email }}</li>
-		<li>Telephone: {{ client.telephone }}</li>
-		<li>Skype: {{ client.skype }}</li>
-	</ul>
+  <div class="col-lg-3 col-sm-3">
 
-	<h3>Client Address</h3>
-	<p>
-		{{ client.street }}<br>
-		{{ client.street_2 }}<br>
-		{{ client.city }}<br>
-		{{ client.state }} {{ client.postcode }}<br>
-		{{ client.country }}<br>
-	</p>
+    <h3>Contact</h3>
+    <hr>
+    <p>
+      <strong>{{ client.first_name }} {{client.last_name}}</strong><br>
+      {{ client.email }}<br>
+      {{ client.telephone }}
+    </p>
 
+  </div>
 
-	<h3>Invoices</h3>
-	<ul>
-	{% for invoice in invoices %}
-		<li><a href="{{ url_for('view_invoice', invoice_id = invoice.id) }}">{{ invoice.name }}</a></li>
-	{% endfor %}
-	</ul>
+  <div class="col-lg-3 col-sm-3">
 
-	<h3>Notes</h3>
-	<div class="notes">
-		{{ client.notes }}
-	</div>
+    <h3>Organization</h3>
+    <hr>
+    <p>
+      <a href="{{ client.website }}">{{ client.company }}</a><br>
+      {{ client.street }}<br>
+      {{ client.city }}, {{ client.state }} {{ client.postal_code }}</li>
+    </p>
+
+  </div>
+
+  <div class="col-lg-4 col-sm-4">
+
+    <h3>Invoices</h3>
+    <hr>
+    <ul>
+      {% for invoice in invoices %}
+        <li><a href="{{ url_for('view_invoice', invoice_id = invoice.id) }}">{{ invoice.name }}</a></li>
+      {% endfor %}
+    </ul>
+
+  </div>
 
 {% endblock content %}
