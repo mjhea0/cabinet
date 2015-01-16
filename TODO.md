@@ -4,6 +4,5 @@
 1. Better dashhboard
 1. Homepage Template
 1. Dashboard Calendar
-1. Services and tasks
 1. Date selection
-1. Theme
+1. Theme!
