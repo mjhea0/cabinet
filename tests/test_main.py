@@ -13,6 +13,7 @@ class TestMainBlueprint(BaseTestCase):
         response = self.client.get(
             '/', content_type='html/text', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
+        self.assertIn('Please log in to access this page.', response.data)
 
 
 if __name__ == '__main__':
