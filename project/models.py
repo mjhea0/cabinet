@@ -69,7 +69,7 @@ class Invoice(db.Model):
     created_date = db.Column(db.DateTime)
     sent_date = db.Column(db.DateTime)
     due_date = db.Column(db.DateTime, nullable=False)
-    total_price = db.Column(db.Integer, nullable=False)
+    total_price = db.Column(db.Float, nullable=False)
     client_id = db.Column(db.Integer, db.ForeignKey('clients.id'))
     client = db.relationship(
         'Client', backref=db.backref('invoices', lazy='dynamic'))

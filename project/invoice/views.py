@@ -50,7 +50,8 @@ def view_invoice(invoice_id):
 @login_required
 def create_invoice():
     form = AddInvoiceForm()
-    clients = Client.query.order_by('company')
+    categories = [(c.id, c.company) for c in Client.query.order_by('company')]
+    form.client.choices = categories
     if form.validate_on_submit():
         client = Client.query.get(request.form['client'])
         invoice = Invoice(
@@ -67,7 +68,6 @@ def create_invoice():
     return render_template(
         'invoices/create.html',
         title='Add New Invoice',
-        clients=clients,
         form=form
     )
 
