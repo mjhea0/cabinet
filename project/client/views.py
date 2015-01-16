@@ -72,8 +72,7 @@ def create_client():
         )
         db.session.add(client)
         db.session.commit()
-        flash("Client '{0} {1}' was added.".format(
-            client.first_name, client.last_name), 'success')
+        flash("Client '{0}' was added.".format(client.company), 'success')
         return redirect(url_for('client.clients'))
     return render_template('clients/create.html', title="Add Client", form=form)
 
@@ -98,8 +97,7 @@ def edit_client(client_id):
         client.country = request.form['country']
         db.session.add(client)
         db.session.commit()
-        flash("Client '{0} {1}' has been updated.".format(
-            client.first_name, client.last_name), 'success')
+        flash("Client '{0}' was updated.".format(client.company), 'success')
         return redirect(url_for('client.clients'))
     return render_template(
         'clients/edit.html',
@@ -116,10 +114,10 @@ def delete_client(client_id):
         if request.method == 'POST':
             db.session.delete(client)
             db.session.commit()
-            flash("Client '{0}' has been deleted.".format(client.name))
+            flash("Client '{0}' was deleted.".format(client.company), 'success')
             return redirect(url_for('client.clients'))
         return render_template(
             'clients/delete.html',
-            title='Delete {0}'.format(client.name),
+            title='Delete {0}'.format(client.company),
             client=client
         )

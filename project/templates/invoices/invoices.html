@@ -1,31 +1,50 @@
 {% extends '_base.html' %}
+
 {% block content %}
-	<header class="content-header">
-		<h1>Invoices</h1>
-		<p class="add-link"><a href="{{ url_for('create_invoice') }}">Add Invoice</a></p>
-	</header>
-	{% with messages = get_flashed_messages() %}
-		{% if messages %}
-			<ul class="flash-messages">
-			{% for message in messages %}
-				<li>{{ message }}</li>
-			{% endfor %}
-			</ul>
-		{% endif %}
-	{% endwith %}
-	{% if invoices %}
-		<ul class="invoices">
-		{% for invoice in invoices %}<li class="invoice">
-			<p class="actions">
-				<a href="{{ url_for('view_invoice', invoice_id = invoice.id) }}">View</a> |
-				<a href="{{ url_for('edit_invoice', invoice_id = invoice.id) }}">Edit</a> |
-				<a href="{{ url_for('delete_invoice', invoice_id = invoice.id) }}">Delete</a>
-			</p>
-			<h3>{{ invoice.name }} // <em>{{ invoice.project.name }}</em></h3>
-			<h4>1000$</h4>
-		</li>{% endfor %}
-		</ul>
-	{% else %}
-		<p class="no-data">You haven't created any invoices yet.</p>
-	{% endif %}
-{% endblock %}
+
+  <header class="content-header">
+    <h1>Invoices</h1>
+  </header>
+
+  <br><br>
+
+  <a href="{{ url_for('invoice.create_invoice') }}" class="btn btn-success btn-xs">Add Invoice</a>
+
+  <br><br>
+
+  {% if invoices %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Client ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Company</th>
+          <th>Email Address</th>
+          <th>Date Created</th>
+          <th>Actions</th>
+        <tr>
+      </thead>
+      <tbody>
+        {% for invoice in invoice %}
+          <tr>
+            <th>{{ client.id }}</th>
+            <th>{{ client.first_name }}</th>
+            <th>{{ client.last_name }}</th>
+            <th>{{ client.company }}</th>
+            <th><a href="mailto:{{ client.email }}" target="_top">{{ client.email }}</a></th>
+            <th>{{ client.date_created.strftime('%m-%d-%Y') }}</th>
+            <th>
+              <a href="{{ url_for('invoice.view_invoice', invoice_id = invoice.id) }}">View</a> |
+              <a href="{{ url_for('invoice.edit_invoice', invoice_id = invoice.id) }}">Edit</a> |
+              <a href="{{ url_for('invoice.delete_invoice', invoice_id = invoice.id) }}">Delete</a>
+            </th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>You haven't created any invoice yet.</p>
+  {% endif %}
+
+{% endblock content %}
