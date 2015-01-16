@@ -75,6 +75,9 @@ class TestClientBlueprint(BaseTestCase):
             response = self.client.get('/clients/1', follow_redirects=True)
             self.assertEqual(response.status_code, 404)
 
+    def test_view_client_with_invoices(self):
+        pass
+
     def test_create_client_login(self):
         # Ensure /clients/create route requres logged in user.
         add_client()
