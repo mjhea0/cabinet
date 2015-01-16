@@ -8,7 +8,12 @@ from base import BaseTestCase
 
 class TestClientBlueprint(BaseTestCase):
 
-    def test_clients_login(self):
+    def test_client_requires_login(self):
+        # Ensure /clients route requres logged in user.
+        response = self.client.get('/clients', follow_redirects=True)
+        self.assertIn('Please log in to access this page', response.data)
+
+    def test_clients_with_no_clients(self):
         # Ensure /clients shows now clients.
         with self.client:
             response = self.client.post(
@@ -21,10 +26,8 @@ class TestClientBlueprint(BaseTestCase):
             self.assertIn('Clients', response.data)
             self.assertIn("You haven't created any clients yet.", response.data)
 
-    def test_client_requires_login(self):
-        # Ensure /clients route requres logged in user.
-        response = self.client.get('/clients', follow_redirects=True)
-        self.assertIn('Please log in to access this page', response.data)
+    def test_clients_with_clients(self):
+        pass
 
 
 if __name__ == '__main__':

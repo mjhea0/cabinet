@@ -4,11 +4,10 @@
 {% block content %}
 
   <header class="content-header">
-    <h1>Clients / Add Client</h1>
+    <h1>Clients / <em>Add Client</em></h1>
   </header>
 
   <br>
-
 
   <form class="form" role="form" method="post" action="">
 
@@ -25,7 +24,7 @@
       {{ wtf.form_field(form.first_name) }}
       {{ wtf.form_field(form.last_name) }}
       {{ wtf.form_field(form.email) }}
-      {{ wtf.form_field(form.notes) }}
+      {{ wtf.form_field(form.telephone) }}
 
     </div>
 
@@ -36,9 +35,6 @@
 
       {{ wtf.form_field(form.company) }}
       {{ wtf.form_field(form.website) }}
-      {{ wtf.form_field(form.telephone) }}
-      {{ wtf.form_field(form.twitter_handle) }}
-      {{ wtf.form_field(form.skype) }}
 
     </div>
 

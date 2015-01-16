@@ -45,7 +45,7 @@ def view_client(client_id):
     invoices = client.invoices.all()
     return render_template(
         'clients/view.html',
-        title=client.company,
+        title=client.last_name+","+client.first_name,
         client=client,
         invoices=invoices
     )
@@ -63,14 +63,11 @@ def create_client():
             company=request.form['company'],
             website=request.form['website'],
             telephone=request.form['telephone'],
-            twitter_handle=request.form['twitter_handle'],
-            skype=request.form['skype'],
             street=request.form['street'],
             city=request.form['city'],
             state=request.form['state'],
             postal_code=request.form['postal_code'],
             country=request.form['country'],
-            internal_notes=request.form['notes'],
             date_created=datetime.datetime.now()
         )
         db.session.add(client)
@@ -85,30 +82,30 @@ def create_client():
     '/clients/edit/<int:client_id>', methods=['GET', 'POST'])
 @login_required
 def edit_client(client_id):
+    form = AddClientForm()
     client = Client.query.get(client_id)
-    if request.method == 'POST':
-        client.name = request.form['name']
+    if form.validate_on_submit():
+        client.first_name = request.form['first_name']
+        client.last_name = request.form['last_name']
+        client.email = request.form['email']
         client.company = request.form['company']
         client.website = request.form['website']
-        client.twitter = request.form['twitter']
-        client.email = request.form['email']
         client.telephone = request.form['telephone']
-        client.skype = request.form['skype']
         client.street = request.form['street']
-        client.street_2 = request.form['street_2']
         client.city = request.form['city']
         client.state = request.form['state']
-        client.postcode = request.form['postcode']
+        client.postal_code = request.form['postal_code']
         client.country = request.form['country']
-        client.notes = request.form['notes']
         db.session.add(client)
         db.session.commit()
-        flash("Client '%s' has been updated." % client.name)
+        flash("Client '{0} {1}' has been updated.".format(
+            client.first_name, client.last_name), 'success')
         return redirect(url_for('client.clients'))
     return render_template(
         'clients/edit.html',
-        title='Edit {0}'.format(client.name),
-        client=client
+        title='Edit {0}'.format(client.company),
+        client=client,
+        form=form
     )
 
 

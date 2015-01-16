@@ -4,10 +4,13 @@
 
   <header class="content-header">
     <h1>Clients</h1>
-    <p class="add-link"><a href="{{ url_for('client.create_client') }}">Add Client</a></p>
   </header>
 
-  <br>
+  <br><br>
+
+  <a href="{{ url_for('client.create_client') }}" class="btn btn-success btn-xs">Add Client</a>
+
+  <br><br>
 
   {% if clients %}
     <table class="table table-hover">

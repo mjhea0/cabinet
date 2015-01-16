@@ -1,13 +1,58 @@
 {% extends '_base.html' %}
-{% block content %}
-	<header class="content-header">
-		<h1>Clients</h1>
-		<h2>Edit <em>{{ client.name }}</em></h2>
-	</header>
+{% import "bootstrap/wtf.html" as wtf %}
 
-	<form action="" method="post" name="edit-client">
-		{% include 'clients/_form.html' %}
-		<p class="form-buttons"><a href="{{ url_for('clients') }}" class="btn cancel-btn">Cancel</a><button class="btn">Edit Client</button></p>
-	</form>
+{% block content %}
+
+  <header class="content-header">
+    <h1>Clients / <em>Edit Client</em></h1>
+  </header>
+
+  <br>
+
+  <form class="form" role="form" method="post" action="">
+
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    {{ wtf.form_errors(form, hiddens="only") }}
+
+
+    <div class="col-lg-4 col-sm-4">
+
+      <h3>Contact</h3>
+      <hr><br>
+      {{ wtf.form_field(form.first_name, value=client.first_name) }}
+      {{ wtf.form_field(form.last_name, value=client.last_name) }}
+      {{ wtf.form_field(form.email, value=client.email) }}
+      {{ wtf.form_field(form.telephone, value=client.telephone) }}
+
+    </div>
+
+    <div class="col-lg-4 col-sm-4">
+
+      <h3>Organization</h3>
+      <hr><br>
+
+      {{ wtf.form_field(form.company, value=client.company) }}
+      {{ wtf.form_field(form.website, value=client.website) }}
+
+    </div>
+
+    <div class="col-lg-4 col-sm-4">
+
+      <h3>Address</h3>
+      <hr><br>
+
+      {{ wtf.form_field(form.street, value=client.street) }}
+      {{ wtf.form_field(form.city, value=client.city) }}
+      {{ wtf.form_field(form.state, value=client.state) }}
+      {{ wtf.form_field(form.postal_code, value=client.postal_code) }}
+      {{ wtf.form_field(form.country, value=client.country) }}
+
+    </div>
+
+    <button class="btn btn-success btn-lg" type="submit">Update Client</button>
+    <a href="{{ url_for('client.clients') }}" class="btn btn-default btn-lg">Cancel</a>
+
+  </form>
 
 {% endblock content %}
