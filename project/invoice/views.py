@@ -10,7 +10,7 @@ from flask import render_template, Blueprint, url_for, \
 from flask.ext.login import login_required
 
 from project import db
-from project.models import Invoice, Client, Project
+from project.models import Invoice, Client
 
 
 ################
@@ -47,10 +47,8 @@ def view_invoice(invoice_id):
 @login_required
 def create_invoice():
     clients = Client.query.order_by('name')
-    projects = Project.query.order_by('name')
     if request.method == 'POST':
         client = Client.query.get(request.form['client'])
-        project = Project.query.get(request.form['project'])
         invoice = Invoice(
             name=request.form['name'],
             currency=request.form['currency'],
@@ -58,17 +56,16 @@ def create_invoice():
             notes=request.form['notes'],
             payment=request.form['payment'],
             internal_notes=request.form['internal_notes'],
-            client=client,
-            project=project)
+            client=client
+        )
         db.session.add(invoice)
         db.session.commit()
         flash("Invoice '{0}' was added.".format(invoice.name))
         return redirect(url_for('invoice.invoices'))
     return render_template(
         'invoices/create.html',
-        title='Add a New Invoice',
+        title='Add New Invoice',
         clients=clients,
-        projects=projects
     )
 
 
@@ -78,10 +75,8 @@ def create_invoice():
 def edit_invoice(invoice_id):
         invoice = Invoice.query.get(invoice_id)
         clients = Client.query.order_by('name')
-        projects = Project.query.order_by('name')
         if request.method == 'POST':
             client = Client.query.get(request.form['client'])
-            project = Project.query.get(request.form['project'])
             invoice.name = request.form['name']
             invoice.currency = request.form['currency']
             invoice.status = request.form['status']
@@ -89,7 +84,6 @@ def edit_invoice(invoice_id):
             invoice.payment = request.form['payment']
             invoice.internal_notes = request.form['internal_notes']
             invoice.client = client
-            invoice.project = project
             db.session.add(invoice)
             db.session.commit()
             flash("Invoice '{0}' has been updated.".format(invoice.name))
@@ -99,7 +93,6 @@ def edit_invoice(invoice_id):
             title='Edit Invoice {0}'.format(invoice.name),
             invoice=invoice,
             clients=clients,
-            projects=projects
         )
 
 

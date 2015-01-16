@@ -1,6 +1,8 @@
 # TODO
 
 1. Models - relate user to client, project, invoice, etc.
+1. Get rid of projects - simplify!
+1. Better dashhboard
 1. Homepage Template
 1. Dashboard Calendar
 1. Services and tasks

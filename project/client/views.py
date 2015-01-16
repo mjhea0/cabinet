@@ -42,13 +42,11 @@ def clients():
 @login_required
 def view_client(client_id):
     client = Client.query.get(client_id)
-    projects = client.projects.all()
     invoices = client.invoices.all()
     return render_template(
         'clients/view.html',
-        title=client.last_name,
+        title=client.company,
         client=client,
-        projects=projects,
         invoices=invoices
     )
 
@@ -72,7 +70,7 @@ def create_client():
             state=request.form['state'],
             postal_code=request.form['postal_code'],
             country=request.form['country'],
-            notes=request.form['notes'],
+            internal_notes=request.form['notes'],
             date_created=datetime.datetime.now()
         )
         db.session.add(client)

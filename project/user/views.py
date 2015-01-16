@@ -37,7 +37,7 @@ def login():
         else:
             flash('Invalid email and/or password.', 'danger')
             return render_template('user/login.html', form=form)
-    return render_template('user/login.html', form=form)
+    return render_template('user/login.html', title='Please Login', form=form)
 
 
 @user_blueprint.route('/logout')
