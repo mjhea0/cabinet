@@ -74,6 +74,38 @@ class TestClientBlueprint(BaseTestCase):
             response = self.client.get('/clients/1', follow_redirects=True)
             self.assertEqual(response.status_code, 404)
 
+    def test_create_client_login(self):
+        # Ensure /clients/create route requres logged in user.
+        add_client()
+        response = self.client.get('/clients/create', follow_redirects=True)
+        self.assertIn('Please log in to access tis page', response.data)
+
+
+
+# @client_blueprint.route('/clients/create', methods=['GET', 'POST'])
+# @login_required
+# def create_client():
+#     form = AddClientForm()
+#     if form.validate_on_submit():
+#         client = Client(
+#             first_name=request.form['first_name'],
+#             last_name=request.form['last_name'],
+#             email=request.form['email'],
+#             company=request.form['company'],
+#             website=request.form['website'],
+#             telephone=request.form['telephone'],
+#             street=request.form['street'],
+#             city=request.form['city'],
+#             state=request.form['state'],
+#             postal_code=request.form['postal_code'],
+#             country=request.form['country'],
+#             date_created=datetime.datetime.now()
+#         )
+#         db.session.add(client)
+#         db.session.commit()
+#         flash("Client '{0}' was added.".format(client.company), 'success')
+#         return redirect(url_for('client.clients'))
+#     return render_template('clients/create.html', title="Add Client", form=form)
 
 if __name__ == '__main__':
     unittest.main()
