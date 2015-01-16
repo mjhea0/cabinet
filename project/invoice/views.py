@@ -5,12 +5,15 @@
 #### imports ####
 #################
 
+import datetime
+
 from flask import render_template, Blueprint, url_for, \
     redirect, flash, request
 from flask.ext.login import login_required
 
 from project import db
 from project.models import Invoice, Client
+from project.invoice.forms import AddInvoiceForm
 
 
 ################
@@ -46,16 +49,15 @@ def view_invoice(invoice_id):
 @invoice_blueprint.route('/invoices/create', methods=['GET', 'POST'])
 @login_required
 def create_invoice():
-    clients = Client.query.order_by('name')
-    if request.method == 'POST':
+    form = AddInvoiceForm()
+    clients = Client.query.order_by('company')
+    if form.validate_on_submit():
         client = Client.query.get(request.form['client'])
         invoice = Invoice(
-            name=request.form['name'],
-            currency=request.form['currency'],
-            status=request.form['status'],
-            notes=request.form['notes'],
-            payment=request.form['payment'],
-            internal_notes=request.form['internal_notes'],
+            paid=0,
+            created_date=datetime.datetime.now(),
+            due_date=request.form['due_date'],
+            total_price=request.form['total_price'],
             client=client
         )
         db.session.add(invoice)
@@ -66,6 +68,7 @@ def create_invoice():
         'invoices/create.html',
         title='Add New Invoice',
         clients=clients,
+        form=form
     )
 
 
@@ -73,41 +76,41 @@ def create_invoice():
     '/invoices/edit/<int:invoice_id>', methods=['GET', 'POST'])
 @login_required
 def edit_invoice(invoice_id):
-        invoice = Invoice.query.get(invoice_id)
-        clients = Client.query.order_by('name')
-        if request.method == 'POST':
-            client = Client.query.get(request.form['client'])
-            invoice.name = request.form['name']
-            invoice.currency = request.form['currency']
-            invoice.status = request.form['status']
-            invoice.notes = request.form['notes']
-            invoice.payment = request.form['payment']
-            invoice.internal_notes = request.form['internal_notes']
-            invoice.client = client
-            db.session.add(invoice)
-            db.session.commit()
-            flash("Invoice '{0}' has been updated.".format(invoice.name))
-            return redirect(url_for('invoice.invoices'))
-        return render_template(
-            'invoices/edit.html',
-            title='Edit Invoice {0}'.format(invoice.name),
-            invoice=invoice,
-            clients=clients,
-        )
+    invoice = Invoice.query.get(invoice_id)
+    clients = Client.query.order_by('name')
+    if request.method == 'POST':
+        client = Client.query.get(request.form['client'])
+        invoice.name = request.form['name']
+        invoice.currency = request.form['currency']
+        invoice.status = request.form['status']
+        invoice.notes = request.form['notes']
+        invoice.payment = request.form['payment']
+        invoice.internal_notes = request.form['internal_notes']
+        invoice.client = client
+        db.session.add(invoice)
+        db.session.commit()
+        flash("Invoice '{0}' has been updated.".format(invoice.name))
+        return redirect(url_for('invoice.invoices'))
+    return render_template(
+        'invoices/edit.html',
+        title='Edit Invoice {0}'.format(invoice.name),
+        invoice=invoice,
+        clients=clients,
+    )
 
 
 @invoice_blueprint.route(
     '/invoices/delete/<int:invoice_id>', methods=['GET', 'POST'])
 @login_required
 def delete_invoice(invoice_id):
-        invoice = Invoice.query.get(invoice_id)
-        if request.method == 'POST':
-            db.session.delete(invoice)
-            db.session.commit()
-            flash("Invoice '{0}' has been deleted.".format(invoice.name))
-            return redirect(url_for('invoice.invoices'))
-        return render_template(
-            'invoices/delete.html',
-            title='Delete Invoice {0}'.format(invoice.name),
-            invoice=invoice
-        )
+    invoice = Invoice.query.get(invoice_id)
+    if request.method == 'POST':
+        db.session.delete(invoice)
+        db.session.commit()
+        flash("Invoice '{0}' has been deleted.".format(invoice.name))
+        return redirect(url_for('invoice.invoices'))
+    return render_template(
+        'invoices/delete.html',
+        title='Delete Invoice {0}'.format(invoice.name),
+        invoice=invoice
+    )

@@ -65,14 +65,11 @@ class Invoice(db.Model):
     __tablename__ = "invoices"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), index=True, nullable=False)
-    status = db.Column(db.String(255))
+    paid = db.Column(db.Boolean, nullable=False)
+    created_date = db.Column(db.DateTime)
     sent_date = db.Column(db.DateTime)
-    due_date = db.Column(db.DateTime)
-    total_price = db.Column(db.Integer)
-    notes = db.Column(db.Text(1000))
-    payment = db.Column(db.Text(1000))
-    internal_notes = db.Column(db.Text(1000))
+    due_date = db.Column(db.DateTime, nullable=False)
+    total_price = db.Column(db.Integer, nullable=False)
     client_id = db.Column(db.Integer, db.ForeignKey('clients.id'))
     client = db.relationship(
         'Client', backref=db.backref('invoices', lazy='dynamic'))

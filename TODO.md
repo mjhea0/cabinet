@@ -6,3 +6,4 @@
 1. Dashboard Calendar
 1. Date selection
 1. Theme!
+1. If no clients, then you cannot add an invoice!

@@ -2,7 +2,7 @@
 
 
 from flask_wtf import Form
-from wtforms import StringField, TextAreaField
+from wtforms import StringField
 from wtforms.validators import DataRequired, Email, Length, URL
 
 
@@ -18,11 +18,8 @@ class AddClientForm(Form):
     website = StringField('Website', validators=[URL()])
     telephone = StringField(
         "Telephone (10-digit)", validators=[Length(min=10, max=10)])
-    twitter_handle = StringField('Twitter Handle')
-    skype = StringField('Skype Handle')
     street = StringField('Street Address')
     city = StringField('City')
     state = StringField('State', validators=[Length(min=2)])
     postal_code = StringField('Postal Code', validators=[Length(min=5)])
     country = StringField('County', validators=[Length(min=2)])
-    notes = TextAreaField('Private Notes')

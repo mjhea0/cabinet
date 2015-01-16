@@ -1,12 +1,34 @@
 {% extends '_base.html' %}
-{% block content %}
-	<header class="content-header">
-		<h1>Invoices</h1>
-		<h2>Add a New Invoice</h2>
-	</header>
+{% import "bootstrap/wtf.html" as wtf %}
 
-	<form action="" method="post" name="add-invoice">
-		{% include 'invoices/_form.html' %}
-		<p class="form-buttons"><button>Add Invoice</button></p>
-	</form>
+{% block content %}
+
+  <header class="content-header">
+    <h1>Invoices / <em>Add Invoice</em></h1>
+  </header>
+
+  <br>
+
+  <form class="form" role="form" method="post" action="">
+
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    {{ wtf.form_errors(form, hiddens="only") }}
+
+    <div class="col-lg-4 col-sm-4">
+
+      {{ wtf.form_field(form.client) }}
+      {{ wtf.form_field(form.due_date) }}
+      {{ wtf.form_field(form.total_price) }}
+
+    <button class="btn btn-success btn-lg" type="submit">Add Invoice</button>
+    <a href="{{ url_for('invoice.invoices') }}" class="btn btn-default btn-lg">Cancel</a>
+
+    </div>
+
+  </form>
+
+
 {% endblock content %}
+
+
