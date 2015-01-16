@@ -2,6 +2,7 @@
 
 
 import unittest
+import datetime
 
 from base import BaseTestCase
 from helpers import add_client
@@ -81,7 +82,7 @@ class TestClientBlueprint(BaseTestCase):
         self.assertIn('Please log in to access this page', response.data)
 
     def test_create_client(self):
-        #  Ensure new client can be created.
+        # Ensure /clients/create exists.
         with self.client:
             self.client.post(
                 '/login',
@@ -92,32 +93,35 @@ class TestClientBlueprint(BaseTestCase):
             self.assertIn('Clients', response.data)
             self.assertIn("Add Client", response.data)
 
+    def test_create_client_post(self):
+        #  Ensure new client can be created.
+        with self.client:
+            self.client.post(
+                '/login',
+                data=dict(email="ad@min.com", password="admin_user"),
+                follow_redirects=True
+            )
+            response = self.client.post(
+                '/clients/create',
+                data=dict(
+                    first_name='first_name',
+                    last_name='last_name',
+                    email='email@email.com',
+                    company='company',
+                    website='http://website.com',
+                    telephone='1112221234',
+                    street='street',
+                    city='city',
+                    state='state',
+                    postal_code='60987',
+                    country='country',
+                    date_created=datetime.datetime.now()
+                ),
+                follow_redirects=True
+            )
+            self.assertIn('Clients', response.data)
+            self.assertIn("Add Clint", response.data)
 
-
-# @client_blueprint.route('/clients/create', methods=['GET', 'POST'])
-# @login_required
-# def create_client():
-#     form = AddClientForm()
-#     if form.validate_on_submit():
-#         client = Client(
-#             first_name=request.form['first_name'],
-#             last_name=request.form['last_name'],
-#             email=request.form['email'],
-#             company=request.form['company'],
-#             website=request.form['website'],
-#             telephone=request.form['telephone'],
-#             street=request.form['street'],
-#             city=request.form['city'],
-#             state=request.form['state'],
-#             postal_code=request.form['postal_code'],
-#             country=request.form['country'],
-#             date_created=datetime.datetime.now()
-#         )
-#         db.session.add(client)
-#         db.session.commit()
-#         flash("Client '{0}' was added.".format(client.company), 'success')
-#         return redirect(url_for('client.clients'))
-#     return render_template('clients/create.html', title="Add Client", form=form)
 
 if __name__ == '__main__':
     unittest.main()
