@@ -38,6 +38,7 @@ def home():
     cal_list = [cal.monthdatescalendar(year, month)]
     return render_template(
         'main/dashboard.html',
+        title='Dashboard',
         year=year,
         this_month=month,
         calendar=cal_list
