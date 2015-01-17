@@ -18,6 +18,14 @@
     <div class="col-lg-4 col-sm-4">
 
       {{ wtf.form_field(form.client) }}
+      <a href="{{ url_for('client.create_client') }}">Add Client</a>
+
+    </div>
+
+    <div class="col-lg-4 col-sm-4">
+      {{ wtf.form_field(form.invoice_date) }}
+      <br>
+      Due Date
       {{ wtf.form_field(form.total_price) }}
 
     <button class="btn btn-success btn-lg" type="submit">Add Invoice</button>
