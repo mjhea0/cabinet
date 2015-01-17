@@ -11,6 +11,6 @@ from wtforms.validators import DataRequired
 
 class AddInvoiceForm(Form):
     client = SelectField('Client', coerce=int)
-    total_price = FloatField('Total Price', validators=[DataRequired()])
-    invoice_date = DateField(
-        'Invoice Date', format='%Y-%m-%d', default=datetime.datetime.now())
+    total_price = FloatField('Total Price (USD)', validators=[DataRequired()])
+    invoice_date = DateField('Invoice Date', default=datetime.datetime.now())
+    due_date = DateField('Due Date')

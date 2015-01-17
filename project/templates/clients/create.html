@@ -15,44 +15,40 @@
     {{ form.hidden_tag() }}
     {{ wtf.form_errors(form, hiddens="only") }}
 
+    <div class="col-lg-12 col-sm-12">
 
-    <div class="col-lg-4 col-sm-4">
+      <div class="col-lg-4 col-sm-4">
+        <h3>Contact</h3>
+        <hr><br>
+        {{ wtf.form_field(form.first_name) }}
+        {{ wtf.form_field(form.last_name) }}
+        {{ wtf.form_field(form.email) }}
+        {{ wtf.form_field(form.telephone) }}
+      </div>
 
-      <h3>Contact</h3>
-      <hr><br>
+      <div class="col-lg-4 col-sm-4">
+        <h3>Organization</h3>
+        <hr><br>
+        {{ wtf.form_field(form.company) }}
+        {{ wtf.form_field(form.website) }}
+      </div>
 
-      {{ wtf.form_field(form.first_name) }}
-      {{ wtf.form_field(form.last_name) }}
-      {{ wtf.form_field(form.email) }}
-      {{ wtf.form_field(form.telephone) }}
-
-    </div>
-
-    <div class="col-lg-4 col-sm-4">
-
-      <h3>Organization</h3>
-      <hr><br>
-
-      {{ wtf.form_field(form.company) }}
-      {{ wtf.form_field(form.website) }}
-
-    </div>
-
-    <div class="col-lg-4 col-sm-4">
-
-      <h3>Address</h3>
-      <hr><br>
-
-      {{ wtf.form_field(form.street) }}
-      {{ wtf.form_field(form.city) }}
-      {{ wtf.form_field(form.state) }}
-      {{ wtf.form_field(form.postal_code) }}
-      {{ wtf.form_field(form.country) }}
+      <div class="col-lg-4 col-sm-4">
+        <h3>Address</h3>
+        <hr><br>
+        {{ wtf.form_field(form.street) }}
+        {{ wtf.form_field(form.city) }}
+        {{ wtf.form_field(form.state) }}
+        {{ wtf.form_field(form.postal_code) }}
+        {{ wtf.form_field(form.country) }}
+      </div>
 
     </div>
 
-    <button class="btn btn-success btn-lg" type="submit">Add Client</button>
-    <a href="{{ url_for('client.clients') }}" class="btn btn-default btn-lg">Cancel</a>
+    <div class="col-lg-12 col-sm-12">
+      <button class="btn btn-success btn-lg" type="submit">Add Client</button>
+      <a href="{{ url_for('client.clients') }}" class="btn btn-default btn-lg">Cancel</a>
+    </div>
 
   </form>
 
