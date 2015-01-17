@@ -6,7 +6,7 @@ from project import db
 from project.models import Client, Invoice
 
 
-def add_client():
+def add_data():
     client = Client(
         first_name='Michael',
         last_name='Herman',
@@ -22,10 +22,7 @@ def add_client():
         date_created=datetime.datetime.now()
     )
     db.session.add(client)
-    db.session.commit()
-
-
-def add_invoice(client):
+    client = Client.query.first()
     invoice = Invoice(
         paid=0,
         invoice_date=datetime.datetime.now(),

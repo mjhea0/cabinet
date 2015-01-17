@@ -5,7 +5,7 @@ import unittest
 import datetime
 
 from base import BaseTestCase
-from helpers import add_client
+from helpers import add_data
 
 
 class TestClientBlueprint(BaseTestCase):
@@ -30,7 +30,7 @@ class TestClientBlueprint(BaseTestCase):
 
     def test_client_with_clients(self):
         # Ensure /clients shows one client.
-        add_client()
+        add_data()
         with self.client:
             self.client.post(
                 '/login',
@@ -46,13 +46,13 @@ class TestClientBlueprint(BaseTestCase):
 
     def test_client_view_login(self):
         # Ensure /clients/<int:client_id> route requres logged in user.
-        add_client()
+        add_data()
         response = self.client.get('/clients/1', follow_redirects=True)
         self.assertIn('Please log in to access this page', response.data)
 
     def test_client_view(self):
         # Ensure /clients/1 route exists.
-        add_client()
+        add_data()
         with self.client:
             self.client.post(
                 '/login',
@@ -158,14 +158,14 @@ class TestClientBlueprint(BaseTestCase):
 
     def test_client_edit_login(self):
         # Ensure clients/edit/1 route requres logged in user.
-        add_client()
+        add_data()
         response = self.client.get('/clients/edit/1', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn('Please log in to access this page', response.data)
 
     def test_client_edit_post(self):
         #  Ensure client can be edited (clients/edit/1).
-        add_client()
+        add_data()
         with self.client:
             self.client.post(
                 '/login',
@@ -197,7 +197,7 @@ class TestClientBlueprint(BaseTestCase):
 
     def test_client_edit_post_errors(self):
         #  Ensure errors populate (clients/edit/1).
-        add_client()
+        add_data()
         with self.client:
             self.client.post(
                 '/login',

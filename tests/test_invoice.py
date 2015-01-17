@@ -4,6 +4,7 @@
 import unittest
 
 from base import BaseTestCase
+from helpers import add_data
 
 
 class TestInvoiceBlueprint(BaseTestCase):
@@ -29,7 +30,19 @@ class TestInvoiceBlueprint(BaseTestCase):
 
     def test_invoice_with_invoices(self):
         # Ensure /invoices shows one client.
-        pass
+        add_data()
+        with self.client:
+            self.client.post(
+                '/login',
+                data=dict(email="ad@min.com", password="admin_user"),
+                follow_redirects=True
+            )
+            response = self.client.get('/invoices', follow_redirects=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertIn('Invoices', response.data)
+            # self.assertIn("<th>22.00</th>", response.data)
+            # self.assertIn("<th>False</th>", response.data)
+            # self.assertIn("<th>Real Python</th>", response.data)
 
 
 if __name__ == '__main__':
