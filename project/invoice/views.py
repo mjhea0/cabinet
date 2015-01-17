@@ -63,7 +63,8 @@ def create_invoice():
         client = Client.query.get(request.form['client'])
         invoice = Invoice(
             paid=0,
-            created_date=datetime.datetime.now(),
+            invoice_date=datetime.datetime.strptime(
+                request.form['invoice_date'], '%Y-%m-%d'),
             due_date=datetime.datetime.now(),
             total_price=request.form['total_price'],
             client=client

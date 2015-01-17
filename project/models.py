@@ -66,7 +66,7 @@ class Invoice(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     paid = db.Column(db.Boolean, nullable=False)
-    created_date = db.Column(db.DateTime)
+    invoice_date = db.Column(db.DateTime)
     sent_date = db.Column(db.DateTime)
     due_date = db.Column(db.DateTime, nullable=False)
     total_price = db.Column(db.Float, nullable=False)
