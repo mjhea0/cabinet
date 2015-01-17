@@ -40,9 +40,10 @@ class TestInvoiceBlueprint(BaseTestCase):
             response = self.client.get('/invoices', follow_redirects=True)
             self.assertEqual(response.status_code, 200)
             self.assertIn('Invoices', response.data)
-            # self.assertIn("<th>22.00</th>", response.data)
-            # self.assertIn("<th>False</th>", response.data)
-            # self.assertIn("<th>Real Python</th>", response.data)
+            self.assertIn("<th>False</th>\n", response.data)
+            self.assertIn("<th>Real Python</th>\n", response.data)
+            self.assertNotIn(
+                "You haven't created any invoices yet.", response.data)
 
 
 if __name__ == '__main__':

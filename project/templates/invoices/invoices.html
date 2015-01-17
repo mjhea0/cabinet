@@ -33,7 +33,7 @@
             <th>{{ invoice.paid }}</th>
             <th>{{ invoice.invoice_date.strftime('%m-%d-%Y') }}</th>
             <th>{{ invoice.due_date.strftime('%m-%d-%Y') }}</th>
-            <th>{{ invoice.total_price }}</th>
+            <th>${{ '{0:0.2f}'.format(invoice.total_price) }}</th>
             <th>
               <a href="{{ url_for('invoice.view_invoice', invoice_id = invoice.id) }}">View</a> |
               <a href="{{ url_for('invoice.edit_invoice', invoice_id = invoice.id) }}">Edit</a> |

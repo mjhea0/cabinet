@@ -65,10 +65,11 @@ class Invoice(db.Model):
     __tablename__ = "invoices"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    invoice_number = db.Column(db.Integer)
     paid = db.Column(db.Boolean, nullable=False)
     invoice_date = db.Column(db.DateTime)
     sent_date = db.Column(db.DateTime)
-    due_date = db.Column(db.DateTime, nullable=False)
+    due_date = db.Column(db.DateTime)
     total_price = db.Column(db.Float, nullable=False)
     client_id = db.Column(db.Integer, db.ForeignKey('clients.id'))
     client = db.relationship(
