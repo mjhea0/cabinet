@@ -5,7 +5,7 @@ import unittest
 import datetime
 
 from base import BaseTestCase
-from helpers import add_data
+from helpers import add_client, add_invoice
 
 
 class TestClientBlueprint(BaseTestCase):
@@ -29,7 +29,7 @@ class TestClientBlueprint(BaseTestCase):
 
     def test_client_with_clients(self):
         # Ensure /clients shows one client.
-        add_data()
+        add_client()
         with self.client:
             self.client.post(
                 '/login',
@@ -44,13 +44,13 @@ class TestClientBlueprint(BaseTestCase):
 
     def test_client_view_login(self):
         # Ensure /clients/<int:client_id> route requres logged in user.
-        add_data()
+        add_client()
         response = self.client.get('/clients/1', follow_redirects=True)
         self.assertIn('Please log in to access this page', response.data)
 
-    def test_client_view(self):
+    def test_client_view_with_clients(self):
         # Ensure /clients/1 route exists.
-        add_data()
+        add_client()
         with self.client:
             self.client.post(
                 '/login',
@@ -73,7 +73,37 @@ class TestClientBlueprint(BaseTestCase):
             self.assertEqual(response.status_code, 404)
 
     def test_client_view_with_invoices(self):
-        pass
+        # Ensure /clients/1 route exists (with invoices)
+        add_invoice()
+        with self.client:
+            self.client.post(
+                '/login',
+                data=dict(email="ad@min.com", password="admin_user"),
+                follow_redirects=True
+            )
+            response = self.client.get('/clients/1', follow_redirects=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertIn('99', response.data)
+            self.assertNotIn(
+                "You haven't created any invoices for this client yet.",
+                response.data
+            )
+
+    def test_client_view_with_no_invoices(self):
+        # Ensure /clients/1 route exists (no invoices).
+        add_client()
+        with self.client:
+            self.client.post(
+                '/login',
+                data=dict(email="ad@min.com", password="admin_user"),
+                follow_redirects=True
+            )
+            response = self.client.get('/clients/1', follow_redirects=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(
+                "You haven't created any invoices for this client yet.",
+                response.data
+            )
 
     def test_client_create_login(self):
         # Ensure /clients/create route requres logged in user.
@@ -152,14 +182,14 @@ class TestClientBlueprint(BaseTestCase):
 
     def test_client_edit_login(self):
         # Ensure clients/edit/1 route requres logged in user.
-        add_data()
+        add_client()
         response = self.client.get('/clients/edit/1', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn('Please log in to access this page', response.data)
 
     def test_client_edit(self):
         #  Ensure client can be edited (clients/edit/1).
-        add_data()
+        add_client()
         with self.client:
             self.client.post(
                 '/login',
@@ -190,7 +220,7 @@ class TestClientBlueprint(BaseTestCase):
 
     def test_client_edit_errors(self):
         #  Ensure errors populate (clients/edit/1).
-        add_data()
+        add_client()
         with self.client:
             self.client.post(
                 '/login',
@@ -220,14 +250,14 @@ class TestClientBlueprint(BaseTestCase):
 
     def test_client_delete_login(self):
         # Ensure clients/delete/1 route requres logged in user.
-        add_data()
+        add_client()
         response = self.client.get('/clients/delete/1', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertIn('Please log in to access this page', response.data)
 
     def test_client_delete_route(self):
         #  Ensure cclients/delete/1 route is accesible.
-        add_data()
+        add_client()
         with self.client:
             self.client.post(
                 '/login',
@@ -243,7 +273,7 @@ class TestClientBlueprint(BaseTestCase):
 
     def test_client_delete(self):
         #  Ensure client can be deleted (clients/delete/1).
-        add_data()
+        add_client()
         with self.client:
             self.client.post(
                 '/login',

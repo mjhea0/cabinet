@@ -4,7 +4,7 @@
 import unittest
 
 from base import BaseTestCase
-from helpers import add_data
+from helpers import add_invoice
 
 
 class TestInvoiceBlueprint(BaseTestCase):
@@ -30,7 +30,7 @@ class TestInvoiceBlueprint(BaseTestCase):
 
     def test_invoice_with_invoices(self):
         # Ensure /invoices shows one client.
-        add_data()
+        add_invoice()
         with self.client:
             self.client.post(
                 '/login',
