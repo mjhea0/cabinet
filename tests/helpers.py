@@ -25,6 +25,7 @@ def add_data():
     client = Client.query.first()
     invoice = Invoice(
         paid=0,
+        invoice_number=99,
         invoice_date=datetime.datetime.now(),
         due_date=datetime.datetime.now(),
         total_price=22.00,
