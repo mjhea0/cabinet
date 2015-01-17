@@ -18,7 +18,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           {% if current_user.is_authenticated() %}
-            <li><a href="{{ url_for('main.home') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
             <li><a href="{{ url_for('client.clients') }}">Clients</a></li>
             <li><a href="{{ url_for('invoice.invoices') }}">Invoices</a></li>
           {% endif %}

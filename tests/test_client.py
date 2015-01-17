@@ -256,21 +256,6 @@ class TestClientBlueprint(BaseTestCase):
             self.assertIn(
                 'Client &#39;Real Python&#39; was deleted.\n', response.data)
 
-# @client_blueprint.route(
-#     '/clients/delete/<int:client_id>', methods=['GET', 'POST'])
-# def delete_client(client_id):
-#     client = Client.query.get(client_id)
-#     if request.method == 'POST':
-#         db.session.delete(client)
-#         db.session.commit()
-#         flash("Client '{0}' was deleted.".format(client.company), 'success')
-#         return redirect(url_for('client.clients'))
-#     return render_template(
-#         'clients/delete.html',
-#         title='Delete {0}'.format(client.company),
-#         client=client
-#     )
-
 
 if __name__ == '__main__':
     unittest.main()

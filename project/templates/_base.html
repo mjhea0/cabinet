@@ -21,11 +21,10 @@
     <div class="site-content">
       <div class="container">
 
-        <br>
-
         <!-- messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
+        <br>
         <div class="row">
           <div class="col-md-12">
             {% for category, message in messages %}
@@ -39,7 +38,6 @@
         {% endif %}
         {% endwith %}
 
-        <br>
 
         <!-- child template -->
         {% block content %}{% endblock %}

@@ -24,14 +24,14 @@ main_blueprint = Blueprint('main', __name__,)
 ################
 
 
-# @main_blueprint.route('/')
-# def home():
-#     return render_template('main/home.html')
-
-
 @main_blueprint.route('/')
-@login_required
 def home():
+    return render_template('main/home.html', title="Welcome")
+
+
+@main_blueprint.route('/dashboard')
+@login_required
+def dashboard():
     cal = Calendar(0)
     year = date.today().year
     month = date.today().month
