@@ -3,7 +3,7 @@
 import datetime
 
 from project import db
-from project.models import Client
+from project.models import Client, Invoice
 
 
 def add_client():
@@ -22,4 +22,16 @@ def add_client():
         date_created=datetime.datetime.now()
     )
     db.session.add(client)
+    db.session.commit()
+
+
+def add_invoice(client):
+    invoice = Invoice(
+        paid=0,
+        invoice_date=datetime.datetime.now(),
+        due_date=datetime.datetime.now(),
+        total_price=22.00,
+        client=client
+    )
+    db.session.add(invoice)
     db.session.commit()
