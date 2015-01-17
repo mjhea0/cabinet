@@ -48,7 +48,7 @@
         <tbody>
           {% for invoice in invoices %}
             <tr>
-              <th><a href="{{ url_for('invoice.view_invoice', invoice_id = invoice.id) }}">{{ invoice.invoice_number }}</a></th>
+              <th><a href="{{ url_for('invoice.edit_invoice', invoice_id = invoice.id) }}">{{ invoice.invoice_number }}</a></th>
               <th>{{ invoice.paid }}</th>
               <th>${{ '{0:0.2f}'.format(invoice.total_price) }}</th>
             </tr>
