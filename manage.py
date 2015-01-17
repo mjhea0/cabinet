@@ -87,9 +87,16 @@ def create_data():
         country='United States',
         date_created=datetime.datetime.now()
     )
-    # invoice = Invoice()
     db.session.add(client)
-    # db.session.add(invoice)
+    client = Client.query.first()
+    invoice = Invoice(
+        paid=0,
+        invoice_date=datetime.datetime.now(),
+        due_date=datetime.datetime.now(),
+        total_price=22.00,
+        client=client
+    )
+    db.session.add(invoice)
     db.session.commit()
 
 
