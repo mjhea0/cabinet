@@ -25,7 +25,6 @@ class TestClientBlueprint(BaseTestCase):
             )
             response = self.client.get('/clients', follow_redirects=True)
             self.assertEqual(response.status_code, 200)
-            self.assertIn('Clients', response.data)
             self.assertIn("You haven't created any clients yet.", response.data)
 
     def test_client_with_clients(self):
@@ -39,7 +38,6 @@ class TestClientBlueprint(BaseTestCase):
             )
             response = self.client.get('/clients', follow_redirects=True)
             self.assertEqual(response.status_code, 200)
-            self.assertIn('Clients', response.data)
             self.assertIn("<th>Michael</th>", response.data)
             self.assertIn("<th>1</th>", response.data)
             self.assertNotIn("<th>2</th>", response.data)
@@ -61,7 +59,6 @@ class TestClientBlueprint(BaseTestCase):
             )
             response = self.client.get('/clients/1', follow_redirects=True)
             self.assertEqual(response.status_code, 200)
-            self.assertIn('Clients', response.data)
             self.assertIn("Real Python", response.data)
 
     def test_client_view_with_no_clients(self):
@@ -83,7 +80,7 @@ class TestClientBlueprint(BaseTestCase):
         response = self.client.get('/clients/create', follow_redirects=True)
         self.assertIn('Please log in to access this page', response.data)
 
-    def test_client_create(self):
+    def test_client_create_route(self):
         # Ensure /clients/create exists.
         with self.client:
             self.client.post(
@@ -93,10 +90,9 @@ class TestClientBlueprint(BaseTestCase):
             )
             response = self.client.get('/clients/create', follow_redirects=True)
             self.assertEqual(response.status_code, 200)
-            self.assertIn('Clients', response.data)
             self.assertIn("Add Client", response.data)
 
-    def test_client_create_post(self):
+    def test_client_create(self):
         #  Ensure new client can be created.
         with self.client:
             self.client.post(
@@ -123,10 +119,9 @@ class TestClientBlueprint(BaseTestCase):
                 follow_redirects=True
             )
             self.assertEqual(response.status_code, 200)
-            self.assertIn('Clients', response.data)
             self.assertIn("Client &#39;company&#39; was added.", response.data)
 
-    def test_client_create_post_errors(self):
+    def test_client_create_errors(self):
         #  Ensure errors populate.
         with self.client:
             self.client.post(
@@ -153,7 +148,6 @@ class TestClientBlueprint(BaseTestCase):
                 follow_redirects=True
             )
             self.assertEqual(response.status_code, 200)
-            self.assertIn('Clients', response.data)
             self.assertIn('This field is required.', response.data)
 
     def test_client_edit_login(self):
@@ -163,7 +157,7 @@ class TestClientBlueprint(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn('Please log in to access this page', response.data)
 
-    def test_client_edit_post(self):
+    def test_client_edit(self):
         #  Ensure client can be edited (clients/edit/1).
         add_data()
         with self.client:
@@ -191,11 +185,10 @@ class TestClientBlueprint(BaseTestCase):
                 follow_redirects=True
             )
             self.assertEqual(response.status_code, 200)
-            self.assertIn('Clients', response.data)
             self.assertIn(
                 'Client &#39;new_company&#39; was updated.', response.data)
 
-    def test_client_edit_post_errors(self):
+    def test_client_edit_errors(self):
         #  Ensure errors populate (clients/edit/1).
         add_data()
         with self.client:
@@ -223,8 +216,60 @@ class TestClientBlueprint(BaseTestCase):
                 follow_redirects=True
             )
             self.assertEqual(response.status_code, 200)
-            self.assertIn('Clients', response.data)
             self.assertIn("This field is required.", response.data)
+
+    def test_client_delete_login(self):
+        # Ensure clients/delete/1 route requres logged in user.
+        add_data()
+        response = self.client.get('/clients/delete/1', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Please log in to access this page', response.data)
+
+    def test_client_delete_route(self):
+        #  Ensure cclients/delete/1 route is accesible.
+        add_data()
+        with self.client:
+            self.client.post(
+                '/login',
+                data=dict(email="ad@min.com", password="admin_user"),
+                follow_redirects=True
+            )
+            response = self.client.get(
+                '/clients/delete/1', follow_redirects=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(
+                'Are you sure you want to delete client <em>Real Python</em>?',
+                response.data)
+
+    def test_client_delete(self):
+        #  Ensure client can be deleted (clients/delete/1).
+        add_data()
+        with self.client:
+            self.client.post(
+                '/login',
+                data=dict(email="ad@min.com", password="admin_user"),
+                follow_redirects=True
+            )
+            response = self.client.post(
+                '/clients/delete/1', follow_redirects=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(
+                'Client &#39;Real Python&#39; was deleted.\n', response.data)
+
+# @client_blueprint.route(
+#     '/clients/delete/<int:client_id>', methods=['GET', 'POST'])
+# def delete_client(client_id):
+#     client = Client.query.get(client_id)
+#     if request.method == 'POST':
+#         db.session.delete(client)
+#         db.session.commit()
+#         flash("Client '{0}' was deleted.".format(client.company), 'success')
+#         return redirect(url_for('client.clients'))
+#     return render_template(
+#         'clients/delete.html',
+#         title='Delete {0}'.format(client.company),
+#         client=client
+#     )
 
 
 if __name__ == '__main__':

@@ -112,6 +112,7 @@ def edit_client(client_id):
 
 @client_blueprint.route(
     '/clients/delete/<int:client_id>', methods=['GET', 'POST'])
+@login_required
 def delete_client(client_id):
     client = Client.query.get(client_id)
     if request.method == 'POST':
