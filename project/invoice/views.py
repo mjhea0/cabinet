@@ -8,7 +8,7 @@
 import datetime
 
 from flask import render_template, Blueprint, url_for, \
-    redirect, flash, request, abort
+    redirect, flash, request
 from flask.ext.login import login_required
 
 from project import db
@@ -75,7 +75,6 @@ def edit_invoice(invoice_id):
     clients = Client.query.order_by('name')
     if request.method == 'POST':
         client = Client.query.get(request.form['client'])
-        invoice.name = request.form['name']
         invoice.currency = request.form['currency']
         invoice.status = request.form['status']
         invoice.notes = request.form['notes']
@@ -88,7 +87,7 @@ def edit_invoice(invoice_id):
         return redirect(url_for('invoice.invoices'))
     return render_template(
         'invoices/edit.html',
-        title='Edit Invoice {0}'.format(invoice.name),
+        title='Edit Invoice {0}'.format("test"),
         invoice=invoice,
         clients=clients,
     )
